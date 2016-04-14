@@ -5,58 +5,61 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Product page</title>
-
+    <title>Welcome to my shop</title>
 </head>
 <body>
 
-<style type="text/css">
+<style scoped="scoped" type="text/css">
+
     * {margin: 0; padding: 0;} /* обнуляем отступы */
-    body {
-        text-align: center; /* выравниваем все содержимое body по центру */
-        background: #fff; /* цвет фона для наглядности */
-    }
 
-
-
-.item { height:200px; width: 250px; padding-top: 18px; padding-bottom: 18px; overflow: hidden; margin: 0 auto; border: 1px solid #469b4a; border-radius: 5px; margin-left: 15px; margin-top: 20px; float: left;}
+    .item { height:200px; width: 250px; overflow: hidden; margin: 0 auto; border: 1px solid #469b4a; border-radius: 5px; margin-left: 15px; margin-top: 20px; float: left;}
     .item .info {overflow: hidden;}
     .item .info p {color: #666; margin-bottom: 8px;}
+
+    .form-pm { border: 1px solid; width: 889px; display:block; margin: 0 auto; margin-top:15px; }
+    .img { display:block; margin: 0 auto; }
+    .name { float: left; margin-top: 17px; margin-left: 35px; margin-right: 35px; }
+    .color { margin-top: 34px; float: left; margin-right: 35px; }
+    .category { margin-top: 34px; }
+    .feature { margin-top: 17px; margin-left:35px; }
+    .submit { margin-top: 17px; margin-left:35px; margin-bottom: 17px; }
+    .sorry { text-align: center; margin-top: 100px; }
+
 </style>
 
-<%--<form action="<c:url value="/logout" />" method="post">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    <input type="submit" value="Logout"/>
-</form>--%>
-<p><img style="display:block; margin: 0 auto;" src="<c:url value='/resources/images/header.png'/>" /></p>
 
-<form:form method="get" action="filter" commandName="pm" style="border: 1px solid; width: 889px; display:block; margin: 0 auto;">
+<p><img class="img" src="<c:url value='/resources/images/header.png'/>" /></p>
 
-    <b>Поиск по наименованию:</b><br>
-        <form:input path="name" />
+<form:form method="get" action="filter" commandName="pm" cssClass="form-pm">
 
+    <p class="name">
+        <b>Поиск по наименованию:</b><br>
+        <form:input path="name" /></p>
 
-    <form:select path = "color">
-        <form:option value=""><b>Любой цвет</b></form:option>
-        <c:forEach items="${colors}" var="c" >
-            <form:option value="${c}">${c}</form:option>
-        </c:forEach>
-    </form:select>
+    <p class="color">
+        <form:select path = "color" >
+            <form:option value=""><b>Любой цвет</b></form:option>
+                <c:forEach items="${colors}" var="c" >
+                    <form:option value="${c}">${c}</form:option>
+                </c:forEach>
+         </form:select></p>
 
-    <form:select path = "category">
-        <form:option value=""><b>Любая категория</b></form:option>
-        <c:forEach items="${categories}" var="cat" >
-            <form:option value="${cat}">${cat}</form:option>
-        </c:forEach>
-    </form:select>
+    <p class="category">
+        <form:select path = "category">
+            <form:option value=""><b>Любая категория</b></form:option>
+                <c:forEach items="${categories}" var="cat" >
+                    <form:option value="${cat}">${cat}</form:option>
+                </c:forEach>
+            </form:select></p>
 
-    <p><b>Наличие декоративной надписи:</b><br>
+    <p class="feature"><b>Наличие декоративной надписи:</b><br>
         <form:radiobutton path="feature" value="да" label="да" />
         <form:radiobutton path="feature" value="нет" label="нет" />
         <form:radiobutton path="feature"  value="" label="не важно" />
     </p>
 
-    <p><%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
+    <p class="submit">
         <input type="submit" value="Отобрать" />
         <input type="reset" value="Сбросить" /></p>
 
@@ -76,18 +79,14 @@
           </div>
        </div>
 
-
     </c:forEach>
-</table>
-
 
 </c:if>
-
 
 <c:if test="${productByParameters.isEmpty()}">
-<h3 style="display:block; margin:0 auto;">Я искала на складе, но такого товара нет!</h3>
+<h3><p class="sorry">Я искала на складе, но такого товара нет!</p></h3>
 </c:if>
 
-
 </body>
+
 </html>
