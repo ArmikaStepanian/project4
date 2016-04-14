@@ -14,6 +14,7 @@ public interface ProductService {
     public List<Product> listProduct();
 
     public List<String> listColors();
+    public List<String> listCategories();
     public List<Product> getProductByParameters(ProductModel productModel);
     public Product getById(Long id);
 

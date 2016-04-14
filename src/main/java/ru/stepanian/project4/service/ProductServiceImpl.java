@@ -33,6 +33,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
+    public List<String> listCategories() { return dao.listCategories(); }
+
+    @Transactional
+    @Override
     public List<Product> getProductByParameters(ProductModel productModel) { return dao.getProductByParameters(productModel); }
 
     @Transactional

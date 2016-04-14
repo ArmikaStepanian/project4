@@ -29,6 +29,9 @@ public class Product implements Serializable {
     @JoinColumn(name="feature",referencedColumnName="id")
     private Feature feature;
 
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="category",referencedColumnName="id")
+    private Category category;
 
     public Long getId() {
         return id;
@@ -60,6 +63,14 @@ public class Product implements Serializable {
 
     public void setFeature(Feature feature) {
         this.feature = feature;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override

@@ -14,6 +14,7 @@ public class ProductModel implements Serializable {
     private String name;
     private String color;
     private String feature = "";
+    private String category;
 
     public Long getId() {
         return id;
@@ -46,4 +47,13 @@ public class ProductModel implements Serializable {
     public void setFeature(String feature) {
         this.feature = feature;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
 }

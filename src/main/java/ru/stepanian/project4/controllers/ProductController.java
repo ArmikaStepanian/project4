@@ -23,35 +23,45 @@ public class ProductController {
     private ProductService productService;
 
     @RequestMapping("/products")
-    public String select(ModelMap map) {
+    public String select(ModelMap model) {
 
         List<String> colors = productService.listColors();
-        map.put("colors", colors);
+        model.put("colors", colors);
+
+        List<String> categories = productService.listCategories();
+        model.put("categories", categories);
 
         ProductModel pm = new ProductModel();
-        map.put("pm", pm);
+        model.put("pm", pm);
 
         return "products";
 
     }
 
     @RequestMapping("/filter")
-    public String processForm(@ModelAttribute("pm") ProductModel productModel, ModelMap map) {
+    public String processForm(@ModelAttribute("pm") ProductModel productModel, ModelMap model) {
 
         List<String> colors = productService.listColors();
-        map.put("colors", colors);
+        model.put("colors", colors);
+
+        List<String> categories = productService.listCategories();
+        model.put("categories", categories);
 
         List<Product> productByParameters = productService.getProductByParameters(productModel);
-        map.put("productByParameters", productByParameters);
+        model.put("productByParameters", productByParameters);
 
-         return "products";
+        return "products";
     }
 
     @RequestMapping("/showProduct")
     public String showOneProduct (@RequestParam("id") Long id, ModelMap model){
-       model.put("id",id);
+        model.put("id",id);
 
-        return "showProduct";
+        Product product = productService.getById(id);
+        model.put("product", product);
+
+
+       return "showProduct";
     }
 
 

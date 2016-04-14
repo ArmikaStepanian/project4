@@ -46,6 +46,14 @@ public class DAOImpl implements DAO {
         return (List<String>)query.list();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<String> listCategories(){
+        Query query = sessionFactory.getCurrentSession().createQuery("" +
+                "select cat.name as name from Category cat order by cat.name");
+        return (List<String>)query.list();
+    }
+
    @SuppressWarnings("unchecked")
    @Override
     public List<Product> getProductByParameters(ProductModel productModel) {
@@ -54,14 +62,17 @@ public class DAOImpl implements DAO {
             productModel.setColor("%");
         if(productModel.getFeature().equals(""))
            productModel.setFeature("%");
+        if(productModel.getCategory().equals(""))
+           productModel.setCategory("%");
 
         Query query = sessionFactory.getCurrentSession().createQuery("" +
-                "select p.id as id, p.name as name, p.color as color, p.feature as feature from Product p " +
-                "where p.name like :name and p.color.name like :color and p.feature.name like :feature ")
+                "select p.id as id, p.name as name, p.color as color, p.feature as feature, p.category as category from Product p " +
+                "where p.name like :name and p.color.name like :color and p.feature.name like :feature and p.category.name like :category")
                 .setResultTransformer(Transformers.aliasToBean(Product.class));
         query.setParameter("name", (productModel.getName()+"%"));
         query.setParameter("color", productModel.getColor());
         query.setParameter("feature", productModel.getFeature());
+        query.setParameter("category", productModel.getCategory());
         return (List<Product>)query.list();
 
     }
@@ -70,8 +81,8 @@ public class DAOImpl implements DAO {
     @Override
     public Product getById(Long id){
         Session session = this.sessionFactory.getCurrentSession();
-        Product product = session.get(Product.class, id);
-        return product;
+        return session.get(Product.class, id);
+
     }
 
 

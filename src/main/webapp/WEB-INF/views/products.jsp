@@ -10,16 +10,31 @@
 </head>
 <body>
 
-<form action="<c:url value="/logout" />" method="post">
+<style type="text/css">
+    * {margin: 0; padding: 0;} /* обнуляем отступы */
+    body {
+        text-align: center; /* выравниваем все содержимое body по центру */
+        background: #fff; /* цвет фона для наглядности */
+    }
+
+
+
+.item { height:200px; width: 250px; padding-top: 18px; padding-bottom: 18px; overflow: hidden; margin: 0 auto; border: 1px solid #469b4a; border-radius: 5px; margin-left: 15px; margin-top: 20px; float: left;}
+    .item .info {overflow: hidden;}
+    .item .info p {color: #666; margin-bottom: 8px;}
+</style>
+
+<%--<form action="<c:url value="/logout" />" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <input type="submit" value="Logout"/>
-</form>
+</form>--%>
+<p><img style="display:block; margin: 0 auto;" src="<c:url value='/resources/images/header.png'/>" /></p>
 
-<form:form method="get" action="filter" commandName="pm" style="border: 1px solid; width: 300px;">
+<form:form method="get" action="filter" commandName="pm" style="border: 1px solid; width: 889px; display:block; margin: 0 auto;">
 
-    <p><b>Поиск по имени:</b><br>
+    <b>Поиск по наименованию:</b><br>
         <form:input path="name" />
-    <p>
+
 
     <form:select path = "color">
         <form:option value=""><b>Любой цвет</b></form:option>
@@ -28,10 +43,17 @@
         </c:forEach>
     </form:select>
 
-    <p><b>Наличие дополнительного кармана:</b><br>
-        <form:radiobutton path="feature" value="да" label="yes" />
-        <form:radiobutton path="feature" value="нет" label="no" />
-        <form:radiobutton path="feature"  value="" label="doesn't matter" />
+    <form:select path = "category">
+        <form:option value=""><b>Любая категория</b></form:option>
+        <c:forEach items="${categories}" var="cat" >
+            <form:option value="${cat}">${cat}</form:option>
+        </c:forEach>
+    </form:select>
+
+    <p><b>Наличие декоративной надписи:</b><br>
+        <form:radiobutton path="feature" value="да" label="да" />
+        <form:radiobutton path="feature" value="нет" label="нет" />
+        <form:radiobutton path="feature"  value="" label="не важно" />
     </p>
 
     <p><%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
@@ -40,20 +62,32 @@
 
 </form:form>
 
+<c:if test="${!(productByParameters.isEmpty())}">
 
-<table style="width: 600px; text-align:center">
-    <tbody>
     <c:forEach items="${productByParameters}" var="s" >
-        <tr>
-            <td>${s.id}</td>
-            <td><a href="./showProduct?id=${s.id}"><c:out value="${s.name}"/></a></td>
-            <%--<td>${s.name}</td>--%>
-            <td>${s.color}</td>
-            <td>${s.feature}</td>
-        </tr>
+
+       <div class="item">
+          <div class="info">
+            <p><strong>ID </strong>${s.id}</p>
+            <p><strong>NAME </strong><a href="./showProduct?id=${s.id}"><c:out value="${s.name}"/></a></p>
+            <p><strong>COLOR </strong>${s.color}</p>
+            <p><strong>FEATURE </strong>${s.feature}</p>
+            <p><strong>CATEGORY </strong>${s.category}</p>
+          </div>
+       </div>
+
+
     </c:forEach>
-    </tbody>
 </table>
+
+
+</c:if>
+
+
+<c:if test="${productByParameters.isEmpty()}">
+<h3 style="display:block; margin:0 auto;">Я искала на складе, но такого товара нет!</h3>
+</c:if>
+
 
 </body>
 </html>

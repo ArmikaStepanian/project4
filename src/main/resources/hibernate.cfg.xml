@@ -7,5 +7,6 @@
       <mapping class="ru.stepanian.project4.entities.Product"/>
       <mapping class="ru.stepanian.project4.entities.Colors"/>
       <mapping class="ru.stepanian.project4.entities.Feature"/>
+      <mapping class="ru.stepanian.project4.entities.Category"/>
   </session-factory>
 </hibernate-configuration>

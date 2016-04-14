@@ -1,30 +1,33 @@
 package ru.stepanian.project4.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * Created by Stepanian on 08.04.2016.
+ * Created by 1 on 14.04.2016.
  */
 
 @Entity
 @Table
-public class Colors implements Serializable {
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column
     private String name;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    /*public void setId(Long id) {
+    /*public void setId(Integer id) {
         this.id = id;
     }*/
 
@@ -38,8 +41,8 @@ public class Colors implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        return (other instanceof Colors) && (id != null)
-                ? id.equals(((Colors) other).id)
+        return (other instanceof Category) && (id != null)
+                ? id.equals(((Category) other).id)
                 : (other == this);
     }
 
@@ -54,5 +57,4 @@ public class Colors implements Serializable {
     public String toString() {
         return name;
     }
-
 }
