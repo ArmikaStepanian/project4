@@ -6,32 +6,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Welcome to my shop</title>
+    <link href="<c:url value="/resources/css/product.css" />" rel="stylesheet">
 </head>
 <body>
 
-<style scoped="scoped" type="text/css">
-
-    * {margin: 0; padding: 0;} /* обнуляем отступы */
-
-    .item { height:200px; width: 250px; overflow: hidden; margin: 0 auto; border: 1px solid #469b4a; border-radius: 5px; margin-left: 15px; margin-top: 20px; float: left;}
-    .item .info {overflow: hidden;}
-    .item .info p {color: #666; margin-bottom: 8px;}
-
-    .form-pm { border: 1px solid; width: 889px; display:block; margin: 0 auto; margin-top:15px; }
-    .img { display:block; margin: 0 auto; }
-    .name { float: left; margin-top: 17px; margin-left: 35px; margin-right: 35px; }
-    .color { margin-top: 34px; float: left; margin-right: 35px; }
-    .category { margin-top: 34px; }
-    .feature { margin-top: 17px; margin-left:35px; }
-    .submit { margin-top: 17px; margin-left:35px; margin-bottom: 17px; }
-    .sorry { text-align: center; margin-top: 100px; }
-
-</style>
-
-
+<div class="container">
+<div class="header">
 <p><img class="img" src="<c:url value='/resources/images/header.png'/>" /></p>
 
-<form:form method="get" action="filter" commandName="pm" cssClass="form-pm">
+<form:form method="get" action="filter" commandName="productModel" cssClass="form-pm">
 
     <p class="name">
         <b>Поиск по наименованию:</b><br>
@@ -40,7 +23,7 @@
     <p class="color">
         <form:select path = "color" >
             <form:option value=""><b>Любой цвет</b></form:option>
-                <c:forEach items="${colors}" var="c" >
+                <c:forEach items="${listColors}" var="c" >
                     <form:option value="${c}">${c}</form:option>
                 </c:forEach>
          </form:select></p>
@@ -65,9 +48,27 @@
 
 </form:form>
 
-<c:if test="${!(productByParameters.isEmpty())}">
+</div>
 
-    <c:forEach items="${productByParameters}" var="s" >
+    <c:if test="${pagination.isPagination() == true}">
+        <p>Найдено товаров: ${count}</p>
+        <ul class="pagination">
+            <li><a href="<c:if test="${pagination.getPreviousPage()!=-1}">?page=${pagination.getPreviousPage()}</c:if>">&laquo;</a></li>
+            <c:set var="count" value="1"></c:set>
+            <c:forEach begin="1" end="${pagination.getPagesCount()}">
+                <li><a href="?page=${count}">${count}</a></li>
+                <c:set var="count" value="${count + 1}"></c:set>
+            </c:forEach>
+            <li><a href="<c:if test="${pagination.getNextPage()!=-1}">?page=${pagination.getNextPage()}</c:if>">&raquo;</a></li>
+        </ul>
+    </c:if>
+
+
+
+<div class="book-list">
+<c:if test="${!(products.isEmpty())}">
+
+    <c:forEach items="${products}" var="s" >
 
        <div class="item">
           <div class="info">
@@ -83,10 +84,12 @@
 
 </c:if>
 
-<c:if test="${productByParameters.isEmpty()}">
+<c:if test="${products.isEmpty()}">
 <h3><p class="sorry">Я искала на складе, но такого товара нет!</p></h3>
 </c:if>
+</div>
 
+</div>
 </body>
 
 </html>

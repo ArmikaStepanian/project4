@@ -1,0 +1,100 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+a:link {
+    color: #469b4a;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #469b4a;
+    text-decoration: underline;
+}
+
+.container {
+    width: 889px;
+    margin: 0 auto;
+}
+
+.header {
+    height:310px;
+}
+
+.book-list{
+    float:left;
+    width: 889px;
+}
+
+.item {
+    height:200px;
+    width: 250px;
+    overflow: hidden;
+    margin: 0 auto;
+    /*border: 1px solid #54422f;*/
+    border-radius: 5px;
+    margin-right: 15px;
+    margin-top: 20px;
+    float: left;
+}
+
+.item .info {
+    overflow: hidden;
+}
+
+.item .info p {
+    color: #666; margin-bottom: 8px;
+}
+
+.form-pm {
+    border: 1px solid #54422f;
+    border-radius: 5px;
+    width: 889px;
+    display:block;
+    margin: 0 auto;
+    margin-top:15px;
+}
+
+.form-pm p {
+    color: #666;
+}
+
+.img {
+    display:block;
+    margin: 0 auto;
+}
+
+.name {
+    float: left;
+    margin-top: 17px;
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
+.color {
+    float: left;
+    margin-top: 34px;
+    margin-right: 35px;
+}
+
+.category {
+    margin-top: 34px;
+}
+
+.feature {
+    margin-top: 17px;
+    margin-left:35px;
+}
+
+.submit {
+    margin-top: 17px;
+    margin-left:35px;
+    margin-bottom: 17px;
+}
+
+.sorry {
+    text-align: center;
+    margin-top: 100px;
+}

@@ -11,11 +11,12 @@ import java.util.List;
 
 public interface ProductService {
 
-    public List<Product> listProduct();
-
-    public List<String> listColors();
+    public List<Product> listProduct(int selectedPageNumber);
+    public List<String> getListColors();
     public List<String> listCategories();
     public List<Product> getProductByParameters(ProductModel productModel);
     public Product getById(Long id);
 
+    public long getCount();
+    public List pagination(int resultsPerPage,int page);
 }

@@ -25,11 +25,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<Product> listProduct() { return dao.listProduct(); }
+    public List<Product> listProduct(int selectedPageNumber) { return dao.listProduct(selectedPageNumber); }
 
     @Transactional
     @Override
-    public List<String> listColors() { return dao.listColors(); }
+    public List<String> getListColors() { return dao.getListColors(); }
 
     @Transactional
     @Override
@@ -42,7 +42,12 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public Product getById(Long id) { return dao.getById(id); }
-
+    @Transactional
+    @Override
+    public long getCount(){return dao.getCount();}
+    @Transactional
+    @Override
+    public List pagination(int resultsPerPage,int page){return dao.pagination(resultsPerPage,page);}
 
 
 }
