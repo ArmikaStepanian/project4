@@ -43,7 +43,12 @@ public class ProductController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String doGet(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                        @RequestParam(value = "name", defaultValue = "", required = false) String name,
+                        @RequestParam(value = "color", defaultValue = "", required = false) String color,
+                        @RequestParam(value = "category", defaultValue = "", required = false) String category,
+                        @RequestParam(value = "feature", defaultValue = "", required = false) String feature,
                         ModelMap model) {
+
         List<String> listColors = productService.getListColors();
         model.put("listColors", listColors);
 
@@ -52,6 +57,10 @@ public class ProductController {
 
         ProductModel productModel = new ProductModel();
         model.addAttribute("productModel", productModel);
+        productModel.setName(name);
+        productModel.setColor(color);
+        productModel.setCategory(category);
+        productModel.setFeature(feature);
 
         Pagination pagination = new Pagination();
         model.addAttribute("pagination",pagination);
@@ -94,7 +103,9 @@ public class ProductController {
         pagination.setCurrentPage(page);
         List products;
         products = productService.getProductByParameters(productModel.getName(),productModel.getColor(),
-                productModel.getCategory(),productModel.getFeature(),pagination.getResultsPerPage(), pagination.getCurrentPage());
+                                                         productModel.getCategory(),productModel.getFeature(),
+                                                         pagination.getResultsPerPage(), pagination.getCurrentPage());
+
         model.addAttribute("products", products);
 
         return "products";

@@ -55,7 +55,7 @@
             <a href="<c:if test="${pagination.getPreviousPage()!=-1}">?page=${pagination.getPreviousPage()}</c:if>">&laquo;&nbsp;&nbsp;</a>
             <c:set var="count" value="1"></c:set>
             <c:forEach begin="1" end="${pagination.getPagesCount()}">
-                <a href="?page=${count}">${count}&nbsp;&nbsp;</a>
+                <a href="filter?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${count}">${count}&nbsp;&nbsp;</a>
                 <c:set var="count" value="${count + 1}"></c:set>
             </c:forEach>
             <a href="<c:if test="${pagination.getNextPage()!=-1}">?page=${pagination.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a>
