@@ -52,15 +52,14 @@
 
     <c:if test="${pagination.isPagination() == true}">
         <p>Найдено товаров: ${count}</p>
-        <ul class="pagination">
-            <li><a href="<c:if test="${pagination.getPreviousPage()!=-1}">?page=${pagination.getPreviousPage()}</c:if>">&laquo;</a></li>
+            <a href="<c:if test="${pagination.getPreviousPage()!=-1}">?page=${pagination.getPreviousPage()}</c:if>">&laquo;&nbsp;&nbsp;</a>
             <c:set var="count" value="1"></c:set>
             <c:forEach begin="1" end="${pagination.getPagesCount()}">
-                <li><a href="?page=${count}">${count}</a></li>
+                <a href="?page=${count}">${count}&nbsp;&nbsp;</a>
                 <c:set var="count" value="${count + 1}"></c:set>
             </c:forEach>
-            <li><a href="<c:if test="${pagination.getNextPage()!=-1}">?page=${pagination.getNextPage()}</c:if>">&raquo;</a></li>
-        </ul>
+            <a href="<c:if test="${pagination.getNextPage()!=-1}">?page=${pagination.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a>
+
     </c:if>
 
 
