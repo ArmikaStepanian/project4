@@ -7,7 +7,6 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.stepanian.project4.entities.Product;
-import ru.stepanian.project4.model.ProductModel;
 
 import java.util.List;
 
@@ -72,33 +71,61 @@ public class DAOImpl implements DAO {
     }
     @SuppressWarnings("unchecked")
     @Override
-    public long getCount2(ProductModel productModel){
-        if(productModel.getColor().equals(""))
-            productModel.setColor("%");
-        if(productModel.getFeature().equals(""))
-            productModel.setFeature("%");
-        if(productModel.getCategory().equals(""))
-            productModel.setCategory("%");
+    public long getCount2(String name,String color,String category,String feature){
+        if(color.equals(""))
+            color = "%";
+        if(category.equals(""))
+            category = "%";
+        if(feature.equals(""))
+            feature = "%";
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "select count (*) from Product p where p.name like :name and p.color.name like :color and p.feature.name like :feature and p.category.name like :category order by p.id");
-        query.setParameter("name", (productModel.getName()+"%"));
-        query.setParameter("color", productModel.getColor());
-        query.setParameter("feature", productModel.getFeature());
-        query.setParameter("category", productModel.getCategory());
+        query.setParameter("name", (name +"%"));
+        query.setParameter("color", color);
+        query.setParameter("category", category);
+        query.setParameter("feature", feature);
 
         Long count = (Long)query.uniqueResult();
         return count;
     }
     @SuppressWarnings("unchecked")
     @Override
+    public List<Product> getProductByParameters(String name,String color,String category,String feature,int resultsPerPage,int page) {
+
+        if(color.equals(""))
+            color = "%";
+        if(category.equals(""))
+            category = "%";
+        if(feature.equals(""))
+            feature = "%";
+
+        String str = "select p.id as id, p.name as name, p.color as color, p.feature as feature, p.category as category from Product p " +
+                "where p.name like :name and p.color.name like :color and p.feature.name like :feature and p.category.name like :category order by p.id";
+
+        Query query = sessionFactory.getCurrentSession().createQuery(str).setResultTransformer(Transformers.aliasToBean(Product.class));
+        query.setParameter("name", (name +"%"));
+        query.setParameter("color", color);
+        query.setParameter("category", category);
+        query.setParameter("feature", feature);
+        query.setMaxResults(resultsPerPage);
+        if (page <= 0)
+            query.setFirstResult(page * resultsPerPage);
+        else
+            query.setFirstResult((page - 1) * resultsPerPage);
+        List list = query.setResultTransformer(Transformers.aliasToBean(Product.class)).list();
+        return list;
+
+    }
+    /*@SuppressWarnings("unchecked")
+    @Override
     public List<Product> getProductByParameters(ProductModel productModel,int resultsPerPage,int page) {
 
         if(productModel.getColor().equals(""))
             productModel.setColor("%");
         if(productModel.getFeature().equals(""))
-           productModel.setFeature("%");
+            productModel.setFeature("%");
         if(productModel.getCategory().equals(""))
-           productModel.setCategory("%");
+            productModel.setCategory("%");
 
         String str = "select p.id as id, p.name as name, p.color as color, p.feature as feature, p.category as category from Product p " +
                 "where p.name like :name and p.color.name like :color and p.feature.name like :feature and p.category.name like :category order by p.id";
@@ -115,9 +142,8 @@ public class DAOImpl implements DAO {
             query.setFirstResult((page - 1) * resultsPerPage);
         List list = query.setResultTransformer(Transformers.aliasToBean(Product.class)).list();
         return list;
-        /*return (List<Product>) query.list();*/
 
-    }
+    }*/
 
     @SuppressWarnings("unchecked")
     @Override

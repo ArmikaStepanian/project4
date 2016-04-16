@@ -69,7 +69,15 @@ public class ProductController {
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
     public String processForm(@ModelAttribute("productModel") ProductModel productModel,
                               @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+                              @RequestParam(value = "name", defaultValue = "", required = false) String name,
+                              @RequestParam(value = "color", defaultValue = "", required = false) String color,
+                              @RequestParam(value = "category", defaultValue = "", required = false) String category,
+                              @RequestParam(value = "feature", defaultValue = "", required = false) String feature,
                               ModelMap model) {
+        productModel.setName(name);
+        productModel.setColor(color);
+        productModel.setCategory(category);
+        productModel.setFeature(feature);
 
         List<String> listColors = productService.getListColors();
         model.put("listColors", listColors);
@@ -78,13 +86,15 @@ public class ProductController {
 
         Pagination pagination = new Pagination();
         model.addAttribute("pagination",pagination);
-        long count = productService.getCount2(productModel);
+        long count = productService.getCount2(productModel.getName(),productModel.getColor(),
+                productModel.getCategory(),productModel.getFeature());
         model.addAttribute("count",count);
         pagination.setCount(count);
         pagination.setResultsPerPage(1);
         pagination.setCurrentPage(page);
         List products;
-        products = productService.getProductByParameters(productModel, pagination.getResultsPerPage(), pagination.getCurrentPage());
+        products = productService.getProductByParameters(productModel.getName(),productModel.getColor(),
+                productModel.getCategory(),productModel.getFeature(),pagination.getResultsPerPage(), pagination.getCurrentPage());
         model.addAttribute("products", products);
 
         return "products";

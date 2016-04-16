@@ -1,14 +1,10 @@
 package ru.stepanian.project4.model;
 
-import java.io.Serializable;
-
 /**
  * Created by 1 on 12.04.2016.
  */
 
-public class ProductModel implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ProductModel {
 
     private Long id;
     private String name;

@@ -62,7 +62,7 @@
     </c:if>
 
 
-   <%-- Оставлю на всякий случай, вдруг пригодится
+    <%--Оставлю на всякий случай, вдруг пригодится
     ***${requestScope['javax.servlet.forward.request_uri']}***
     ***${requestScope['javax.servlet.forward.query_string']}***--%>
 

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.stepanian.project4.dao.DAO;
 import ru.stepanian.project4.entities.Product;
-import ru.stepanian.project4.model.ProductModel;
 
 import java.util.List;
 
@@ -37,8 +36,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<Product> getProductByParameters(ProductModel productModel,int resultsPerPage,int page)
-    { return dao.getProductByParameters(productModel, resultsPerPage, page); }
+    public List<Product> getProductByParameters(String name,String color,String category,String feature,int resultsPerPage,int page)
+    { return dao.getProductByParameters(name,color,category,feature, resultsPerPage, page); }
 
     @Transactional
     @Override
@@ -51,7 +50,8 @@ public class ProductServiceImpl implements ProductService {
     public List pagination(int resultsPerPage,int page){return dao.pagination(resultsPerPage,page);}
     @Transactional
     @Override
-    public long getCount2(ProductModel productModel){return dao.getCount2(productModel);}
+    public long getCount2(String name,String color,String category,String feature)
+    {return dao.getCount2(name,color,category,feature);}
 
 
 }
