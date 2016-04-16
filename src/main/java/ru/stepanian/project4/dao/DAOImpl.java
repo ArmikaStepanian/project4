@@ -36,17 +36,6 @@ public class DAOImpl implements DAO {
                 .setResultTransformer(Transformers.aliasToBean(Product.class)); /* привести к виду бина */
         return (List<Product>)query.list();
     }
-
-    @Override
-    public long getCount(){
-        Query query = sessionFactory.getCurrentSession().createQuery("" +
-                "select count (*) from Product p");
-        Long count = (Long)query.uniqueResult();
-        return count;
-    }
-
-
-
     @SuppressWarnings("unchecked")
     @Override
     public List<String> getListColors(){
@@ -61,6 +50,13 @@ public class DAOImpl implements DAO {
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "select cat.name as name from Category cat order by cat.name");
         return (List<String>)query.list();
+    }
+    @Override
+    public long getCount(){
+        Query query = sessionFactory.getCurrentSession().createQuery("" +
+                "select count (*) from Product p");
+        Long count = (Long)query.uniqueResult();
+        return count;
     }
     @Override
     public List pagination(int resultsPerPage,int page) {

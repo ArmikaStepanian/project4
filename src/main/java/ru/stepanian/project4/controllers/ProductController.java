@@ -71,6 +71,7 @@ public class ProductController {
 
     @RequestMapping("/filter")
     public String processForm(@ModelAttribute("productModel") ProductModel productModel,
+                              @RequestParam(value = "page", defaultValue = "0", required = false) int page,
                               ModelMap model) {
 
         List<String> listColors = productService.getListColors();
@@ -79,23 +80,8 @@ public class ProductController {
         List<String> categories = productService.listCategories();
         model.put("categories", categories);
 
-
-
-
-        return "products";
-    }
-    @RequestMapping("/pages")
-    public String showOneProduct (@RequestParam("selectedPageNumber") int selectedPageNumber,
-                                  @ModelAttribute("productModel") ProductModel productModel,
-                                  ModelMap model) {
-
-        List<String> listColors = productService.getListColors();
-        model.put("listColors", listColors);
-
-        List<String> categories = productService.listCategories();
-        model.put("categories", categories);
-        /*List<Product> productByParameters = productService.getProductByParameters(productModel);
-        model.put("productByParameters", productByParameters);*/
+        List<Product> products = productService.getProductByParameters(productModel);
+        model.put("products", products);
 
         return "products";
     }
