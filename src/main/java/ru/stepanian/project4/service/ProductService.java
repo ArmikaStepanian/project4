@@ -14,9 +14,10 @@ public interface ProductService {
     public List<Product> listProduct(int selectedPageNumber);
     public List<String> getListColors();
     public List<String> listCategories();
-    public List<Product> getProductByParameters(ProductModel productModel);
+    public List<Product> getProductByParameters(ProductModel productModel,int resultsPerPage,int page);
     public Product getById(Long id);
 
     public long getCount();
     public List pagination(int resultsPerPage,int page);
+    public long getCount2(ProductModel productModel);
 }

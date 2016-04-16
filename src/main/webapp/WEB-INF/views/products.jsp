@@ -59,8 +59,12 @@
                 <c:set var="count" value="${count + 1}"></c:set>
             </c:forEach>
             <a href="<c:if test="${pagination.getNextPage()!=-1}">?page=${pagination.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a>
-
     </c:if>
+
+
+   <%-- Оставлю на всякий случай, вдруг пригодится
+    ***${requestScope['javax.servlet.forward.request_uri']}***
+    ***${requestScope['javax.servlet.forward.query_string']}***--%>
 
 
 

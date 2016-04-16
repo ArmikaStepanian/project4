@@ -44,19 +44,6 @@ public class ProductController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String doGet(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                         ModelMap model) {
-
-        List products;
-        Pagination pagination = new Pagination();
-        long count = productService.getCount();
-        pagination.setCount(count);
-        pagination.setResultsPerPage(1);
-        pagination.setCurrentPage(page);
-
-        products = productService.pagination(pagination.getResultsPerPage(), pagination.getCurrentPage());
-        model.addAttribute("count",count);
-        model.addAttribute("pagination",pagination);
-        model.addAttribute("products", products);
-
         List<String> listColors = productService.getListColors();
         model.put("listColors", listColors);
 
@@ -66,22 +53,39 @@ public class ProductController {
         ProductModel productModel = new ProductModel();
         model.addAttribute("productModel", productModel);
 
+        Pagination pagination = new Pagination();
+        model.addAttribute("pagination",pagination);
+        long count = productService.getCount();
+        model.addAttribute("count",count);
+        pagination.setCount(count);
+        pagination.setResultsPerPage(1);
+        pagination.setCurrentPage(page);
+        List products;
+        products = productService.pagination(pagination.getResultsPerPage(), pagination.getCurrentPage());
+        model.addAttribute("products", products);
+
         return "products";
     }
-
-    @RequestMapping("/filter")
+    @RequestMapping(value = "/filter", method = RequestMethod.GET)
     public String processForm(@ModelAttribute("productModel") ProductModel productModel,
                               @RequestParam(value = "page", defaultValue = "0", required = false) int page,
                               ModelMap model) {
 
         List<String> listColors = productService.getListColors();
         model.put("listColors", listColors);
-
         List<String> categories = productService.listCategories();
         model.put("categories", categories);
 
-        List<Product> products = productService.getProductByParameters(productModel);
-        model.put("products", products);
+        Pagination pagination = new Pagination();
+        model.addAttribute("pagination",pagination);
+        long count = productService.getCount2(productModel);
+        model.addAttribute("count",count);
+        pagination.setCount(count);
+        pagination.setResultsPerPage(1);
+        pagination.setCurrentPage(page);
+        List products;
+        products = productService.getProductByParameters(productModel, pagination.getResultsPerPage(), pagination.getCurrentPage());
+        model.addAttribute("products", products);
 
         return "products";
     }

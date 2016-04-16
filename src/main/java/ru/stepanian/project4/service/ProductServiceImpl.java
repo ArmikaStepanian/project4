@@ -37,7 +37,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<Product> getProductByParameters(ProductModel productModel) { return dao.getProductByParameters(productModel); }
+    public List<Product> getProductByParameters(ProductModel productModel,int resultsPerPage,int page)
+    { return dao.getProductByParameters(productModel, resultsPerPage, page); }
 
     @Transactional
     @Override
@@ -48,6 +49,9 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public List pagination(int resultsPerPage,int page){return dao.pagination(resultsPerPage,page);}
+    @Transactional
+    @Override
+    public long getCount2(ProductModel productModel){return dao.getCount2(productModel);}
 
 
 }
