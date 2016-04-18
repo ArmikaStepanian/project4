@@ -3,10 +3,7 @@ package ru.stepanian.project4.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.stepanian.project4.entities.Product;
 import ru.stepanian.project4.model.ProductModel;
 import ru.stepanian.project4.service.ProductService;
@@ -80,8 +77,8 @@ public class ProductController {
         pageHelper.setCount(count);
         pageHelper.setResultsPerPage(1);
         pageHelper.setCurrentPage(page);
-        List <Product> products = productService.getProdByParamWithPagination(productModel.getName(),productModel.getColor(),
-                                                                              productModel.getCategory(),productModel.getFeature(),
+        List <Product> products = productService.getProdByParamWithPagination(productModel.getName(), productModel.getColor(),
+                                                                              productModel.getCategory(), productModel.getFeature(),
                                                                               pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
 
         model.addAttribute("products", products);
@@ -91,14 +88,12 @@ public class ProductController {
 
     @RequestMapping(value = "/showProduct", method = RequestMethod.GET)
     public String showOneProduct (@RequestParam("id") Long id,
-                                  ModelMap model) {
+                                  ModelMap model) throws NullPointerException {
 
-        Product product = productService.getProductById(id);
-        model.addAttribute("product", product);
-
-        return "showProduct";
+            Product product = productService.getProductById(id);
+            if (! (product.equals(null)))
+                model.addAttribute("product", product);
+            return "showProduct";
     }
-
-
 
 }

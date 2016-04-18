@@ -12,6 +12,7 @@
 
 <div class="container">
 <div class="header">
+
 <p><img class="img" src="<c:url value='/resources/images/header.png'/>" /></p>
 
 <form:form method="get" action="filter" commandName="productModel" cssClass="form-pm">
@@ -50,49 +51,47 @@
 
 </div>
 
-    <c:if test="${pageHelper.isPagination() == true}">
-        <p>Найдено товаров: ${count}</p>
-            <a href="<c:if test="${pageHelper.getPreviousPage()!=-1}">?page=${pageHelper.getPreviousPage()}</c:if>">&laquo;&nbsp;&nbsp;</a>
-            <c:set var="count" value="1"></c:set>
-            <c:forEach begin="1" end="${pageHelper.getPagesCount()}">
-                <a href="?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${count}">${count}&nbsp;&nbsp;</a>
-                <c:set var="count" value="${count + 1}"></c:set>
-            </c:forEach>
-            <a href="<c:if test="${pageHelper.getNextPage()!=-1}">?page=${pageHelper.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a>
+    <div class="book-list">
+
+    <c:if test="${!(products.isEmpty())}">
+
+        <c:if test="${pageHelper.isPagination() == true}">
+            <p>Найдено товаров: ${count}</p>
+            <p><a href="<c:if test="${pageHelper.getPreviousPage()!=-1}">?page=${pageHelper.getPreviousPage()}</c:if>">&laquo;&nbsp;&nbsp;</a>
+                <c:set var="count" value="1"></c:set>
+                <c:forEach begin="1" end="${pageHelper.getPagesCount()}">
+                    <a href="?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${count}">${count}&nbsp;&nbsp;</a>
+                    <c:set var="count" value="${count + 1}"></c:set>
+                </c:forEach>
+                <a href="<c:if test="${pageHelper.getNextPage()!=-1}">?page=${pageHelper.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a></p>
+        </c:if>
+
+        <c:forEach items="${products}" var="pr" >
+            <div class="item">
+                <div class="info">
+                    <p><strong>ID </strong>${pr.id}</p>
+                    <p><strong>NAME </strong><a href="./showProduct?id=${pr.id}"><c:out value="${pr.name}"/></a></p>
+                    <p><strong>COLOR </strong>${pr.color}</p>
+                    <p><strong>FEATURE </strong>${pr.feature}</p>
+                    <p><strong>CATEGORY </strong>${pr.category}</p>
+                </div>
+            </div>
+        </c:forEach>
+
     </c:if>
 
+        <c:if test="${products.isEmpty()}">
+            <h3><p class="sorry">Я искала на складе, но такого товара нет!</p></h3>
+        </c:if>
 
-    <%--Оставлю на всякий случай, вдруг пригодится
-    ***${requestScope['javax.servlet.forward.request_uri']}***
-    ***${requestScope['javax.servlet.forward.query_string']}***--%>
-
-
-
-<div class="book-list">
-<c:if test="${!(products.isEmpty())}">
-
-    <c:forEach items="${products}" var="pr" >
-
-       <div class="item">
-          <div class="info">
-            <p><strong>ID </strong>${pr.id}</p>
-            <p><strong>NAME </strong><a href="./showProduct?id=${pr.id}"><c:out value="${pr.name}"/></a></p>
-            <p><strong>COLOR </strong>${pr.color}</p>
-            <p><strong>FEATURE </strong>${pr.feature}</p>
-            <p><strong>CATEGORY </strong>${pr.category}</p>
-          </div>
-       </div>
-
-    </c:forEach>
-
-</c:if>
-
-<c:if test="${products.isEmpty()}">
-<h3><p class="sorry">Я искала на складе, но такого товара нет!</p></h3>
-</c:if>
-</div>
+    </div>
 
 </div>
+
 </body>
 
 </html>
+
+<%--
+        ***${requestScope['javax.servlet.forward.request_uri']}***
+        ***${requestScope['javax.servlet.forward.query_string']}***--%>
