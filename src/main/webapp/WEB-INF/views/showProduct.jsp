@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<c:if test="${!(product.equals(null))}">
 <div class="item">
     <div class="info">
             <p><strong>ID </strong>${product.id}</p>
@@ -19,8 +18,6 @@
             <p><strong>КАТЕГОРИЯ </strong>${product.category}</p>
     </div>
 </div>
-</c:if>
-<c:if test="${(product.equals(null))}">такого продукта нет</c:if>
 
 </body>
 
