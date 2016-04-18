@@ -15,7 +15,7 @@
 
 <p><img class="img" src="<c:url value='/resources/images/header.png'/>" /></p>
 
-<form:form method="get" action="filter" commandName="productModel" cssClass="form-pm">
+<form:form name="form" method="get" action="filter" commandName="productModel" cssClass="form-pm">
 
     <p class="name">
         <b>Поиск по наименованию:</b><br>
@@ -45,9 +45,51 @@
 
     <p class="submit">
         <input type="submit" value="Отобрать" />
-        <input type="reset" value="Сбросить" /></p>
+        <input type="button" value="Сбросить" onclick="clearForm(this.form);" /></p>
 
 </form:form>
+
+    <script type="text/javascript">
+
+    function clearForm(form) {
+
+    var elements = form.elements;
+
+    form.reset();
+
+    for(i=0; i < elements.length; i++) {
+
+    field_type = elements[i].type.toLowerCase();
+
+    switch(field_type) {
+
+    case "text":
+    case "password":
+    case "textarea":
+    case "hidden":
+
+    elements[i].value = "";
+    break;
+
+    case "radio":
+    case "checkbox":
+    if (elements[i].checked) {
+    elements[i].checked = false;
+    }
+    break;
+
+    case "select-one":
+    case "select-multi":
+    elements[i].selectedIndex = 0;
+    break;
+
+    default:
+    break;
+    }
+    }
+    }
+
+    </script>
 
 </div>
 

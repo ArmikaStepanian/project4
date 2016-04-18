@@ -12,6 +12,13 @@ public class ProductModel {
     private String feature = "";
     private String category;
 
+    public void clear(){
+        name = "";
+        color = "";
+        feature = "";
+        category = "";
+    }
+
     public Long getId() {
         return id;
     }
