@@ -10,7 +10,7 @@ a:link {
 }
 
 a:visited {
-    color: #469b4a;
+    color: #54422f;
     text-decoration: underline;
 }
 
@@ -73,14 +73,10 @@ a:visited {
     margin-right: 35px;
 }
 
-.color {
+.param {
     float: left;
     margin-top: 34px;
     margin-right: 35px;
-}
-
-.category {
-    margin-top: 34px;
 }
 
 .feature {

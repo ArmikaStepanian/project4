@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * Created by 1 on 12.04.2016.
@@ -12,9 +11,7 @@ import java.io.Serializable;
 
 @Entity
 @Table
-public class Feature implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Feature {
 
     @Id
     @Column
@@ -37,20 +34,6 @@ public class Feature implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return (other instanceof Feature) && (id != null)
-                ? id.equals(((Feature) other).id)
-                : (other == this);
-    }
-
-    @Override
-    public int hashCode() {
-        return (id != null)
-                ? (this.getClass().hashCode() + id.hashCode())
-                : super.hashCode();
     }
 
     @Override

@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * Created by Stepanian on 08.04.2016.
@@ -12,18 +11,16 @@ import java.io.Serializable;
 
 @Entity
 @Table
-public class Colors implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Colors {
 
     @Id
     @Column
-    private Long id;
+    private Integer id;
 
     @Column
     private String name;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 

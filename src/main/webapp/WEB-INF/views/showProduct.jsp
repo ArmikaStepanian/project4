@@ -9,15 +9,18 @@
 </head>
 <body>
 
+<c:if test="${!(product.equals(null))}">
 <div class="item">
     <div class="info">
-        <p><strong>ID </strong>${product.id}</p>
-        <p><strong>НАИМЕНОВАНИЕ </strong>${product.name}</p>
-        <p><strong>ЦВЕТ </strong>${product.color}</p>
-        <p><strong>НАЛИЧИЕ ДЕКОРАТИВНОЙ НАДПИСИ </strong>${product.feature}</p>
-        <p><strong>КАТЕГОРИЯ </strong>${product.category}</p>
+            <p><strong>ID </strong>${product.id}</p>
+            <p><strong>НАИМЕНОВАНИЕ </strong>${product.name}</p>
+            <p><strong>ЦВЕТ </strong>${product.color}</p>
+            <p><strong>НАЛИЧИЕ ДЕКОРАТИВНОЙ НАДПИСИ </strong>${product.feature}</p>
+            <p><strong>КАТЕГОРИЯ </strong>${product.category}</p>
     </div>
 </div>
+</c:if>
+<c:if test="${(product.equals(null))}">такого продукта нет</c:if>
 
 </body>
 

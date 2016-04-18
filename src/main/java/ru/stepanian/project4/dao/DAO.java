@@ -10,16 +10,16 @@ import java.util.List;
 
 public interface DAO {
 
-    public List<Product> listProduct(int selectedPageNumber);
-    public List<String> getListColors();
+
+    public List<String> listColors();
     public List<String> listCategories();
-    public List<Product> getProductByParameters(String name,String color,String category,String feature,int resultsPerPage,int page);
-    public Product getById(Long id);
+    public Product getProductById(Long id);
 
 
-    public long getCount();
-    public List pagination(int resultsPerPage,int page);
-    public long getCount2(String name,String color,String category,String feature);
+    public long getCountAll();
+    public List<Product> getAllProdWithPagination(int resultsPerPage,int page);
+    public long getCountByParameters(String name,String color,String category,String feature);
+    public List<Product> getProdByParamWithPagination(String name,String color,String category,String feature,int resultsPerPage,int page);
 
 
 }

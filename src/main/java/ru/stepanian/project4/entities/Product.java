@@ -1,7 +1,6 @@
 package ru.stepanian.project4.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by Stepanian on 08.04.2016.
@@ -9,9 +8,7 @@ import java.io.Serializable;
 
 @Entity
 @Table
-public class Product implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Product {
 
     @Id
     @Column
@@ -37,9 +34,9 @@ public class Product implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
+    /*public void setId(Long id) {
         this.id = id;
-    }
+    }*/
 
     public String getName() {
         return name;

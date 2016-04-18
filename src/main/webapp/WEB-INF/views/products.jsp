@@ -20,15 +20,15 @@
         <b>Поиск по наименованию:</b><br>
         <form:input path="name" /></p>
 
-    <p class="color">
+    <p class="param">
         <form:select path = "color" >
             <form:option value=""><b>Любой цвет</b></form:option>
-                <c:forEach items="${listColors}" var="c" >
+                <c:forEach items="${colors}" var="c" >
                     <form:option value="${c}">${c}</form:option>
                 </c:forEach>
          </form:select></p>
 
-    <p class="category">
+    <p class="param">
         <form:select path = "category">
             <form:option value=""><b>Любая категория</b></form:option>
                 <c:forEach items="${categories}" var="cat" >
@@ -50,15 +50,15 @@
 
 </div>
 
-    <c:if test="${pagination.isPagination() == true}">
+    <c:if test="${pageHelper.isPagination() == true}">
         <p>Найдено товаров: ${count}</p>
-            <a href="<c:if test="${pagination.getPreviousPage()!=-1}">?page=${pagination.getPreviousPage()}</c:if>">&laquo;&nbsp;&nbsp;</a>
+            <a href="<c:if test="${pageHelper.getPreviousPage()!=-1}">?page=${pageHelper.getPreviousPage()}</c:if>">&laquo;&nbsp;&nbsp;</a>
             <c:set var="count" value="1"></c:set>
-            <c:forEach begin="1" end="${pagination.getPagesCount()}">
-                <a href="filter?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${count}">${count}&nbsp;&nbsp;</a>
+            <c:forEach begin="1" end="${pageHelper.getPagesCount()}">
+                <a href="?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${count}">${count}&nbsp;&nbsp;</a>
                 <c:set var="count" value="${count + 1}"></c:set>
             </c:forEach>
-            <a href="<c:if test="${pagination.getNextPage()!=-1}">?page=${pagination.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a>
+            <a href="<c:if test="${pageHelper.getNextPage()!=-1}">?page=${pageHelper.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a>
     </c:if>
 
 
@@ -71,15 +71,15 @@
 <div class="book-list">
 <c:if test="${!(products.isEmpty())}">
 
-    <c:forEach items="${products}" var="s" >
+    <c:forEach items="${products}" var="pr" >
 
        <div class="item">
           <div class="info">
-            <p><strong>ID </strong>${s.id}</p>
-            <p><strong>NAME </strong><a href="./showProduct?id=${s.id}"><c:out value="${s.name}"/></a></p>
-            <p><strong>COLOR </strong>${s.color}</p>
-            <p><strong>FEATURE </strong>${s.feature}</p>
-            <p><strong>CATEGORY </strong>${s.category}</p>
+            <p><strong>ID </strong>${pr.id}</p>
+            <p><strong>NAME </strong><a href="./showProduct?id=${pr.id}"><c:out value="${pr.name}"/></a></p>
+            <p><strong>COLOR </strong>${pr.color}</p>
+            <p><strong>FEATURE </strong>${pr.feature}</p>
+            <p><strong>CATEGORY </strong>${pr.category}</p>
           </div>
        </div>
 

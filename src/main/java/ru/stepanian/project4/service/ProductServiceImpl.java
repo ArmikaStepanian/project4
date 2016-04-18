@@ -24,11 +24,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<Product> listProduct(int selectedPageNumber) { return dao.listProduct(selectedPageNumber); }
-
-    @Transactional
-    @Override
-    public List<String> getListColors() { return dao.getListColors(); }
+    public List<String> listColors() { return dao.listColors(); }
 
     @Transactional
     @Override
@@ -36,22 +32,25 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<Product> getProductByParameters(String name,String color,String category,String feature,int resultsPerPage,int page)
-    { return dao.getProductByParameters(name,color,category,feature, resultsPerPage, page); }
+    public List<Product> getProdByParamWithPagination(String name,String color,String category,String feature,int resultsPerPage,int page)
+    { return dao.getProdByParamWithPagination(name, color, category,feature, resultsPerPage, page); }
 
     @Transactional
     @Override
-    public Product getById(Long id) { return dao.getById(id); }
+    public Product getProductById(Long id) { return dao.getProductById(id); }
+
     @Transactional
     @Override
-    public long getCount(){return dao.getCount();}
+    public long getCountAll(){return dao.getCountAll();}
+
     @Transactional
     @Override
-    public List pagination(int resultsPerPage,int page){return dao.pagination(resultsPerPage,page);}
+    public List<Product> getAllProdWithPagination(int resultsPerPage,int page){return dao.getAllProdWithPagination(resultsPerPage, page);}
+
     @Transactional
     @Override
-    public long getCount2(String name,String color,String category,String feature)
-    {return dao.getCount2(name,color,category,feature);}
+    public long getCountByParameters(String name, String color, String category, String feature)
+    {return dao.getCountByParameters(name, color, category, feature);}
 
 
 }

@@ -3,7 +3,9 @@ package ru.stepanian.project4.controllers;
 /**
  * Created by 1 on 16.04.2016.
  */
-public class Pagination {
+
+public class PaginationHelper {
+
     private int currentPage;
     private int resultsPerPage;
     private int nextPage = 0;
@@ -12,10 +14,12 @@ public class Pagination {
     private boolean pagination;
     private long count;
 
-    public Pagination(long count) {
+    public PaginationHelper(long count) {
         setCount(count);
     }
-    public Pagination(){}
+
+    public PaginationHelper(){}
+
     private void init() {
         if (count <= resultsPerPage) {
             setPagination(false);
@@ -112,7 +116,7 @@ public class Pagination {
 
     @Override
     public String toString() {
-        return "Pagination{" +
+        return "PaginationHelper{" +
                 "currentPage=" + currentPage +
                 ", resultsPerPage=" + resultsPerPage +
                 ", nextPage=" + nextPage +

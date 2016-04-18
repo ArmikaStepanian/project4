@@ -27,17 +27,10 @@ public class DAOImpl implements DAO {
     /* as - обязательно, это ключи для карты */
     /* p.color - означает вытащить и color.id и color.name */
     /* aliasToBean - привести к виду бина */
+
     @SuppressWarnings("unchecked")
     @Override
-    public List<Product> listProduct(int selectedPageNumber){
-        Query query = sessionFactory.getCurrentSession().createQuery("" +
-                "select p.id as id, p.name as name, p.color as color, p.feature as feature from Product p order by p.id")
-                .setResultTransformer(Transformers.aliasToBean(Product.class)); /* привести к виду бина */
-        return (List<Product>)query.list();
-    }
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<String> getListColors(){
+    public List<String> listColors(){
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "select c.name as name from Colors c order by c.name");
         return (List<String>)query.list();
@@ -51,27 +44,28 @@ public class DAOImpl implements DAO {
         return (List<String>)query.list();
     }
     @Override
-    public long getCount(){
+    public long getCountAll(){
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "select count (*) from Product p");
-        Long count = (Long)query.uniqueResult();
-        return count;
+        return (Long)query.uniqueResult();
+
     }
+    @SuppressWarnings("unchecked")
     @Override
-    public List pagination(int resultsPerPage,int page) {
-        String str = String.format("select p.id as id, p.name as name, p.color as color, p.feature as feature from Product p");
-        Query query = sessionFactory.getCurrentSession().createQuery(str);
+    public List<Product> getAllProdWithPagination(int resultsPerPage,int page) {
+        Query query = sessionFactory.getCurrentSession().createQuery("" +
+                "select p.id as id, p.name as name, p.color as color, p.feature as feature, p.category as category from Product p");
         query.setMaxResults(resultsPerPage);
         if (page <= 0)
             query.setFirstResult(page * resultsPerPage);
         else
             query.setFirstResult((page - 1) * resultsPerPage);
-        List list = query.setResultTransformer(Transformers.aliasToBean(Product.class)).list();
-        return list;
+        return query.setResultTransformer(Transformers.aliasToBean(Product.class)).list();
+
     }
-    @SuppressWarnings("unchecked")
+
     @Override
-    public long getCount2(String name,String color,String category,String feature){
+    public long getCountByParameters(String name,String color,String category,String feature){
         if(color.equals(""))
             color = "%";
         if(category.equals(""))
@@ -79,18 +73,18 @@ public class DAOImpl implements DAO {
         if(feature.equals(""))
             feature = "%";
         Query query = sessionFactory.getCurrentSession().createQuery("" +
-                "select count (*) from Product p where p.name like :name and p.color.name like :color and p.feature.name like :feature and p.category.name like :category order by p.id");
+                "select count (*) from Product p where p.name like :name and p.color.name like :color and p.feature.name like :feature and p.category.name like :category");
         query.setParameter("name", (name +"%"));
         query.setParameter("color", color);
         query.setParameter("category", category);
         query.setParameter("feature", feature);
 
-        Long count = (Long)query.uniqueResult();
-        return count;
+        return  (Long)query.uniqueResult();
+
     }
     @SuppressWarnings("unchecked")
     @Override
-    public List<Product> getProductByParameters(String name,String color,String category,String feature,int resultsPerPage,int page) {
+    public List<Product> getProdByParamWithPagination(String name,String color,String category,String feature,int resultsPerPage,int page) {
 
         if(color.equals(""))
             color = "%";
@@ -112,42 +106,12 @@ public class DAOImpl implements DAO {
             query.setFirstResult(page * resultsPerPage);
         else
             query.setFirstResult((page - 1) * resultsPerPage);
-        List list = query.setResultTransformer(Transformers.aliasToBean(Product.class)).list();
-        return list;
+        return query.setResultTransformer(Transformers.aliasToBean(Product.class)).list();
 
     }
-    /*@SuppressWarnings("unchecked")
+
     @Override
-    public List<Product> getProductByParameters(ProductModel productModel,int resultsPerPage,int page) {
-
-        if(productModel.getColor().equals(""))
-            productModel.setColor("%");
-        if(productModel.getFeature().equals(""))
-            productModel.setFeature("%");
-        if(productModel.getCategory().equals(""))
-            productModel.setCategory("%");
-
-        String str = "select p.id as id, p.name as name, p.color as color, p.feature as feature, p.category as category from Product p " +
-                "where p.name like :name and p.color.name like :color and p.feature.name like :feature and p.category.name like :category order by p.id";
-
-        Query query = sessionFactory.getCurrentSession().createQuery(str).setResultTransformer(Transformers.aliasToBean(Product.class));
-        query.setParameter("name", (productModel.getName()+"%"));
-        query.setParameter("color", productModel.getColor());
-        query.setParameter("feature", productModel.getFeature());
-        query.setParameter("category", productModel.getCategory());
-        query.setMaxResults(resultsPerPage);
-        if (page <= 0)
-            query.setFirstResult(page * resultsPerPage);
-        else
-            query.setFirstResult((page - 1) * resultsPerPage);
-        List list = query.setResultTransformer(Transformers.aliasToBean(Product.class)).list();
-        return list;
-
-    }*/
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public Product getById(Long id){
+    public Product getProductById(Long id){
         Session session = this.sessionFactory.getCurrentSession();
         return session.get(Product.class, id);
 

@@ -23,60 +23,36 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    /*@RequestMapping("/products")*//*
-    @RequestMapping("/")
-    public String select(ModelMap model) {
-
-        List<String> listColors = productService.getListColors();
-        model.put("listColors", listColors);
-
-        List<String> categories = productService.listCategories();
-        model.put("categories", categories);
-
-        ProductModel pm = new ProductModel();
-        model.addAttribute("pm", pm);
-
-        return "products";
-
-    }*/
-
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String doGet(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                        @RequestParam(value = "name", defaultValue = "", required = false) String name,
-                        @RequestParam(value = "color", defaultValue = "", required = false) String color,
-                        @RequestParam(value = "category", defaultValue = "", required = false) String category,
-                        @RequestParam(value = "feature", defaultValue = "", required = false) String feature,
                         ModelMap model) {
 
-        List<String> listColors = productService.getListColors();
-        model.put("listColors", listColors);
+        List<String> colors = productService.listColors();
+        model.addAttribute("colors", colors);
 
         List<String> categories = productService.listCategories();
-        model.put("categories", categories);
+        model.addAttribute("categories", categories);
 
         ProductModel productModel = new ProductModel();
         model.addAttribute("productModel", productModel);
-        productModel.setName(name);
-        productModel.setColor(color);
-        productModel.setCategory(category);
-        productModel.setFeature(feature);
 
-        Pagination pagination = new Pagination();
-        model.addAttribute("pagination",pagination);
-        long count = productService.getCount();
-        model.addAttribute("count",count);
-        pagination.setCount(count);
-        pagination.setResultsPerPage(1);
-        pagination.setCurrentPage(page);
-        List products;
-        products = productService.pagination(pagination.getResultsPerPage(), pagination.getCurrentPage());
+        PaginationHelper pageHelper = new PaginationHelper();
+        model.addAttribute("pageHelper", pageHelper);
+
+        long count = productService.getCountAll();
+        model.addAttribute("count", count);
+
+        pageHelper.setCount(count);
+        pageHelper.setResultsPerPage(1);
+        pageHelper.setCurrentPage(page);
+        List <Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
         model.addAttribute("products", products);
 
         return "products";
     }
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
-    public String processForm(@ModelAttribute("productModel") ProductModel productModel,
+    public String doFilter(@ModelAttribute("productModel") ProductModel productModel,
                               @RequestParam(value = "page", defaultValue = "0", required = false) int page,
                               @RequestParam(value = "name", defaultValue = "", required = false) String name,
                               @RequestParam(value = "color", defaultValue = "", required = false) String color,
@@ -88,34 +64,37 @@ public class ProductController {
         productModel.setCategory(category);
         productModel.setFeature(feature);
 
-        List<String> listColors = productService.getListColors();
-        model.put("listColors", listColors);
-        List<String> categories = productService.listCategories();
-        model.put("categories", categories);
+        List<String> colors = productService.listColors();
+        model.addAttribute("colors", colors);
 
-        Pagination pagination = new Pagination();
-        model.addAttribute("pagination",pagination);
-        long count = productService.getCount2(productModel.getName(),productModel.getColor(),
-                productModel.getCategory(),productModel.getFeature());
-        model.addAttribute("count",count);
-        pagination.setCount(count);
-        pagination.setResultsPerPage(1);
-        pagination.setCurrentPage(page);
-        List products;
-        products = productService.getProductByParameters(productModel.getName(),productModel.getColor(),
-                                                         productModel.getCategory(),productModel.getFeature(),
-                                                         pagination.getResultsPerPage(), pagination.getCurrentPage());
+        List<String> categories = productService.listCategories();
+        model.addAttribute("categories", categories);
+
+        PaginationHelper pageHelper = new PaginationHelper();
+        model.addAttribute("pageHelper", pageHelper);
+
+        long count = productService.getCountByParameters(productModel.getName(), productModel.getColor(),
+                                                         productModel.getCategory(), productModel.getFeature());
+        model.addAttribute("count", count);
+
+        pageHelper.setCount(count);
+        pageHelper.setResultsPerPage(1);
+        pageHelper.setCurrentPage(page);
+        List <Product> products = productService.getProdByParamWithPagination(productModel.getName(),productModel.getColor(),
+                                                                              productModel.getCategory(),productModel.getFeature(),
+                                                                              pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
 
         model.addAttribute("products", products);
 
         return "products";
     }
 
-    @RequestMapping("/showProduct")
-    public String showOneProduct (@RequestParam("id") Long id, ModelMap model){
+    @RequestMapping(value = "/showProduct", method = RequestMethod.GET)
+    public String showOneProduct (@RequestParam("id") Long id,
+                                  ModelMap model) {
 
-        Product product = productService.getById(id);
-        model.put("product", product);
+        Product product = productService.getProductById(id);
+        model.addAttribute("product", product);
 
         return "showProduct";
     }
