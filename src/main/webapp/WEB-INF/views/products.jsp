@@ -1,97 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Welcome to my shop</title>
-    <link href="<c:url value="/resources/css/product.css" />" rel="stylesheet">
-</head>
-<body>
+<%@include file="/WEB-INF/templates/loginForm.jspf" %>
 
-<div class="container">
-<div class="header">
+<%@include file="/WEB-INF/templates/welcome.jspf" %>
 
-<p><img class="img" src="<c:url value='/resources/images/header.png'/>" /></p>
+<%@include file="/WEB-INF/templates/searchForm.jspf" %>
 
-<form:form name="form" method="get" action="filter" commandName="productModel" cssClass="form-pm">
-
-    <p class="name">
-        <b>Поиск по наименованию:</b><br>
-        <form:input path="name" /></p>
-
-    <p class="param">
-        <form:select path = "color" >
-            <form:option value=""><b>Любой цвет</b></form:option>
-                <c:forEach items="${colors}" var="c" >
-                    <form:option value="${c}">${c}</form:option>
-                </c:forEach>
-         </form:select></p>
-
-    <p class="param">
-        <form:select path = "category">
-            <form:option value=""><b>Любая категория</b></form:option>
-                <c:forEach items="${categories}" var="cat" >
-                    <form:option value="${cat}">${cat}</form:option>
-                </c:forEach>
-            </form:select></p>
-
-    <p class="feature"><b>Наличие декоративной надписи:</b><br>
-        <form:radiobutton path="feature" value="да" label="да" />
-        <form:radiobutton path="feature" value="нет" label="нет" />
-        <form:radiobutton path="feature"  value="" label="не важно" />
-    </p>
-
-    <p class="submit">
-        <input type="submit" value="Отобрать" />
-        <input type="button" value="Сбросить" onclick="clearForm(this.form);" /></p>
-
-</form:form>
-
-    <script type="text/javascript">
-
-    function clearForm(form) {
-
-    var elements = form.elements;
-
-    form.reset();
-
-    for(i=0; i < elements.length; i++) {
-
-    field_type = elements[i].type.toLowerCase();
-
-    switch(field_type) {
-
-    case "text":
-    case "password":
-    case "textarea":
-    case "hidden":
-
-    elements[i].value = "";
-    break;
-
-    case "radio":
-    case "checkbox":
-    if (elements[i].checked) {
-    elements[i].checked = false;
-    }
-    break;
-
-    case "select-one":
-    case "select-multi":
-    elements[i].selectedIndex = 0;
-    break;
-
-    default:
-    break;
-    }
-    }
-    }
-
-    </script>
-
-</div>
 
     <div class="book-list">
 
@@ -128,12 +45,10 @@
 
     </div>
 
-</div>
+<%@include file="/WEB-INF/templates/footer.jspf" %>
 
-</body>
 
-</html>
 
-<%--
-        ***${requestScope['javax.servlet.forward.request_uri']}***
+
+        <%--***${requestScope['javax.servlet.forward.request_uri']}***
         ***${requestScope['javax.servlet.forward.query_string']}***--%>

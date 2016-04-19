@@ -7,11 +7,9 @@ package ru.stepanian.project4.controllers;
 /*@Controller
 public class LoginController {
 
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-
+        @RequestMapping(value = "/login", method = RequestMethod.POST)
         public String login() {
-            return "login";    }
+            return "products";    }
 
 }*/
 	

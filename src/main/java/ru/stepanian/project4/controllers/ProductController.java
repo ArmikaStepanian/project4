@@ -3,7 +3,11 @@ package ru.stepanian.project4.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.stepanian.project4.User;
 import ru.stepanian.project4.entities.Product;
 import ru.stepanian.project4.model.ProductModel;
 import ru.stepanian.project4.service.ProductService;
@@ -31,8 +35,9 @@ public class ProductController {
         List<String> categories = productService.listCategories();
         model.addAttribute("categories", categories);
 
-        ProductModel productModel = new ProductModel();
-        model.addAttribute("productModel", productModel);
+        model.addAttribute("productModel", new ProductModel());
+
+        model.addAttribute("user", new User());
 
         PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);
@@ -50,6 +55,7 @@ public class ProductController {
     }
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
     public String doFilter(@ModelAttribute("productModel") ProductModel productModel,
+                           @ModelAttribute("user") User user,
                               @RequestParam(value = "page", defaultValue = "0", required = false) int page,
                               @RequestParam(value = "name", defaultValue = "", required = false) String name,
                               @RequestParam(value = "color", defaultValue = "", required = false) String color,
