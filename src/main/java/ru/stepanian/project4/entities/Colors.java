@@ -20,13 +20,20 @@ public class Colors {
     @Column
     private String name;
 
+    public Colors() {
+    }
+
+    public Colors(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
 
-    /*public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
-    }*/
+    }
 
     public String getName() {
         return name;

@@ -2,38 +2,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<html>
+<head>
+    <title></title>
+</head>
+<body>
 
-<form:form name="form" method="get" action="filter" commandName="productModel" cssClass="form-pm">
+
+<form:form name="form" method="get" action="addProduct" commandName="productModel" >
 
     <p class="name">
-        <b>Поиск по наименованию:</b><br>
+        <b>Имя:</b><br>
         <form:input path="name" /></p>
 
     <p class="param">
         <form:select path = "color" >
-            <form:option value=""><b>Любой цвет</b></form:option>
+            <form:option value=""><b>Цвет</b></form:option>
             <c:forEach items="${colors}" var="c" >
-                <form:option  value="${c.name}" label="${c.name}" />
+                <form:option value="${c.id}">${c.name}</form:option>
             </c:forEach>
         </form:select></p>
 
     <p class="param">
         <form:select path = "category">
-            <form:option value=""><b>Любая категория</b></form:option>
+            <form:option value=""><b>Категория</b></form:option>
             <c:forEach items="${categories}" var="cat" >
-                <form:option value="${cat.name}" label="${cat.name}" />
+                <form:option value="${cat.id}">${cat.name}</form:option>
             </c:forEach>
         </form:select></p>
 
     <p class="feature"><b>Наличие декоративной надписи:</b><br>
         <c:forEach items="${features}" var="f" >
-            <form:radiobutton path="feature" value="${f.name}" label="${f.name}" />
+            <form:radiobutton path="feature" value="${f.id}" label="${f.name}" />
         </c:forEach>
-        <form:radiobutton path="feature" value="" label="не важно" />
     </p>
 
     <p class="submit">
-        <input type="submit" value="Отобрать" />
+        <input type="submit" value="Добавить" />
         <input type="button" value="Сбросить" onclick="clearForm(this.form);" /></p>
 
 </form:form>
@@ -82,4 +87,6 @@
 
 </script>
 
-</div> <!-- end .header -->
+</body>
+
+</html>

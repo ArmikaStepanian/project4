@@ -3,7 +3,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<sec:authorize access="permitAll">
     <section style="float: left">
         <div>
             <form  action="<c:url value='j_spring_security_check' />" method="post">
@@ -25,10 +24,14 @@
                 </c:if>
             </form>
         </div>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <a href="./addProductPage"><c:out value="ДОБАВИТЬ ТОВАР"/></a>
+        </sec:authorize>
+
     </section>
 
-</sec:authorize>
 
-<sec:authorize access="hasRole('ROLE_USER')">
-    hello, ${user.username}
-</sec:authorize>
+
+
+

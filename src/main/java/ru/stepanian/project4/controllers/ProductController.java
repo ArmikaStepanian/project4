@@ -7,15 +7,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.stepanian.project4.User;
-import ru.stepanian.project4.entities.Product;
+import ru.stepanian.project4.entities.*;
 import ru.stepanian.project4.model.ProductModel;
 import ru.stepanian.project4.service.ProductService;
 
 import java.util.List;
 
 /**
- * Created by 1 on 13.04.2016.
+ * Created by Stepanian on 13.04.2016.
  */
 
 @Controller
@@ -24,20 +23,18 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String doGet(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                         ModelMap model) {
 
-        List<String> colors = productService.listColors();
+        List<Colors> colors = productService.listColors();
         model.addAttribute("colors", colors);
-
-        List<String> categories = productService.listCategories();
+        List<Category> categories = productService.listCategories();
         model.addAttribute("categories", categories);
+        List<Feature> features = productService.listFeatures();
+        model.addAttribute("features", features);
 
         model.addAttribute("productModel", new ProductModel());
-
-        model.addAttribute("user", new User());
 
         PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);
@@ -46,7 +43,7 @@ public class ProductController {
         model.addAttribute("count", count);
 
         pageHelper.setCount(count);
-        pageHelper.setResultsPerPage(1);
+        pageHelper.setResultsPerPage(6);
         pageHelper.setCurrentPage(page);
         List <Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
         model.addAttribute("products", products);
@@ -55,7 +52,6 @@ public class ProductController {
     }
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
     public String doFilter(@ModelAttribute("productModel") ProductModel productModel,
-                           @ModelAttribute("user") User user,
                               @RequestParam(value = "page", defaultValue = "0", required = false) int page,
                               @RequestParam(value = "name", defaultValue = "", required = false) String name,
                               @RequestParam(value = "color", defaultValue = "", required = false) String color,
@@ -67,11 +63,12 @@ public class ProductController {
         productModel.setCategory(category);
         productModel.setFeature(feature);
 
-        List<String> colors = productService.listColors();
+        List<Colors> colors = productService.listColors();
         model.addAttribute("colors", colors);
-
-        List<String> categories = productService.listCategories();
+        List<Category> categories = productService.listCategories();
         model.addAttribute("categories", categories);
+        List<Feature> features = productService.listFeatures();
+        model.addAttribute("features", features);
 
         PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);
@@ -81,7 +78,7 @@ public class ProductController {
         model.addAttribute("count", count);
 
         pageHelper.setCount(count);
-        pageHelper.setResultsPerPage(1);
+        pageHelper.setResultsPerPage(6);
         pageHelper.setCurrentPage(page);
         List <Product> products = productService.getProdByParamWithPagination(productModel.getName(), productModel.getColor(),
                                                                               productModel.getCategory(), productModel.getFeature(),
@@ -100,6 +97,47 @@ public class ProductController {
             if (! (product.equals(null)))
                 model.addAttribute("product", product);
             return "showProduct";
+    }
+
+    @RequestMapping(value = "/addProductPage", method = RequestMethod.GET)
+    public String addProductPage (@ModelAttribute("productModel") ProductModel productModel,
+                                  ModelMap model){
+
+        List<Colors> colors = productService.listColors();
+        model.addAttribute("colors", colors);
+        List<Category> categories = productService.listCategories();
+        model.addAttribute("categories", categories);
+        List<Feature> features = productService.listFeatures();
+        model.addAttribute("features", features);
+
+        return "forAdmin";
+    }
+
+    @RequestMapping(value = "/addProduct", method = RequestMethod.GET)
+    public String addProduct (@ModelAttribute("productModel") ProductModel productModel,
+                              @RequestParam(value = "name") String name,
+                              @RequestParam(value = "color") Integer colorId,
+                              @RequestParam(value = "category") Integer categoryId,
+                              @RequestParam(value = "feature") Byte featureId,
+                              ModelMap model){
+
+        List<Colors> colors = productService.listColors();
+        model.addAttribute("colors", colors);
+        List<Category> categories = productService.listCategories();
+        model.addAttribute("categories", categories);
+        List<Feature> features = productService.listFeatures();
+        model.addAttribute("features", features);
+
+        Product product = new Product();
+        product.setName(name);
+        product.setColor(new Colors(colorId));
+        product.setCategory(new Category(categoryId));
+        product.setFeature(new Feature(featureId));
+
+        productService.addProduct(product);
+
+        return "forAdmin";
+
     }
 
 }

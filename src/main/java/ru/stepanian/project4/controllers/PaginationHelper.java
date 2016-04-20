@@ -1,7 +1,7 @@
 package ru.stepanian.project4.controllers;
 
 /**
- * Created by 1 on 16.04.2016.
+ * Created by Stepanian on 16.04.2016.
  */
 
 public class PaginationHelper {
@@ -45,7 +45,11 @@ public class PaginationHelper {
                     setPreviousPage(-1);
                 }
             }
+            if (count % resultsPerPage == 0)
             setPagesCount(((count - (count % resultsPerPage)) / resultsPerPage));
+            if (count % resultsPerPage != 0)
+            setPagesCount(((count - (count % resultsPerPage)) / resultsPerPage)+1);
+
             setPagination(true);
         }
     }

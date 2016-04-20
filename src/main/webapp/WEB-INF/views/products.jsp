@@ -9,20 +9,19 @@
 
 <%@include file="/WEB-INF/templates/searchForm.jspf" %>
 
-
     <div class="book-list">
 
     <c:if test="${!(products.isEmpty())}">
 
         <c:if test="${pageHelper.isPagination() == true}">
             <p>Найдено товаров: ${count}</p>
-            <p><a href="<c:if test="${pageHelper.getPreviousPage()!=-1}">?page=${pageHelper.getPreviousPage()}</c:if>">&laquo;&nbsp;&nbsp;</a>
+            <p><a href="<c:if test="${pageHelper.getPreviousPage()!=-1}">?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${pageHelper.getPreviousPage()}</c:if>">&laquo;&nbsp;&nbsp;</a>
                 <c:set var="count" value="1"></c:set>
                 <c:forEach begin="1" end="${pageHelper.getPagesCount()}">
                     <a href="?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${count}">${count}&nbsp;&nbsp;</a>
                     <c:set var="count" value="${count + 1}"></c:set>
                 </c:forEach>
-                <a href="<c:if test="${pageHelper.getNextPage()!=-1}">?page=${pageHelper.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a></p>
+                <a href="<c:if test="${pageHelper.getNextPage()!=-1}">?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${pageHelper.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a></p>
         </c:if>
 
         <c:forEach items="${products}" var="pr" >

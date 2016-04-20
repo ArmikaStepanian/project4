@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.stepanian.project4.dao.DAO;
+import ru.stepanian.project4.entities.Category;
+import ru.stepanian.project4.entities.Colors;
+import ru.stepanian.project4.entities.Feature;
 import ru.stepanian.project4.entities.Product;
 
 import java.util.List;
@@ -24,11 +27,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<String> listColors() { return dao.listColors(); }
+    public List<Colors> listColors() { return dao.listColors(); }
 
     @Transactional
     @Override
-    public List<String> listCategories() { return dao.listCategories(); }
+    public List<Category> listCategories() { return dao.listCategories(); }
+
+    @Transactional
+    @Override
+    public List<Feature> listFeatures() { return dao.listFeatures(); }
 
     @Transactional
     @Override
@@ -49,8 +56,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public long getCountByParameters(String name, String color, String category, String feature)
+    public long getCountByParameters(String name,String color,String category,String feature)
     {return dao.getCountByParameters(name, color, category, feature);}
 
+    @Transactional
+    @Override
+    public void addProduct (Product product){ dao.addProduct(product);}
 
 }

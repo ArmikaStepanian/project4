@@ -1,7 +1,7 @@
 package ru.stepanian.project4.model;
 
 /**
- * Created by 1 on 12.04.2016.
+ * Created by Stepanian on 20.04.2016.
  */
 
 public class ProductModel {
@@ -9,15 +9,8 @@ public class ProductModel {
     private Long id;
     private String name;
     private String color;
-    private String feature = "";
     private String category;
-
-    public void clear(){
-        name = "";
-        color = "";
-        feature = "";
-        category = "";
-    }
+    private String feature = "";
 
     public Long getId() {
         return id;
@@ -43,14 +36,6 @@ public class ProductModel {
         this.color = color;
     }
 
-    public String getFeature() {
-        return feature;
-    }
-
-    public void setFeature(String feature) {
-        this.feature = feature;
-    }
-
     public String getCategory() {
         return category;
     }
@@ -59,4 +44,11 @@ public class ProductModel {
         this.category = category;
     }
 
+    public String getFeature() {
+        return feature;
+    }
+
+    public void setFeature(String feature) {
+        this.feature = feature;
+    }
 }

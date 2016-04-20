@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by 1 on 12.04.2016.
+ * Created by Stepanian on 12.04.2016.
  */
 
 @Entity
@@ -20,13 +20,20 @@ public class Feature {
     @Column
     private String name;
 
+    public Feature() {
+    }
+
+    public Feature(Byte id) {
+        this.id = id;
+    }
+
     public Byte getId() {
         return id;
     }
 
-   /* public void setId(Byte id) {
+    public void setId(Byte id) {
         this.id = id;
-    }*/
+    }
 
     public String getName() {
         return name;
