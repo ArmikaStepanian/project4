@@ -1,4 +1,4 @@
-package ru.stepanian.project4.controllers;
+package ru.stepanian.project4.helper;
 
 /**
  * Created by Stepanian on 16.04.2016.

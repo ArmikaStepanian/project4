@@ -17,13 +17,15 @@ public interface DAO {
     public List<Colors> listColors();
     public List<Category> listCategories();
     public List<Feature> listFeatures();
-    public Product getProductById(Long id);
 
+    public Product getProductById(Long id);
 
     public long getCountAll();
     public List<Product> getAllProdWithPagination(int resultsPerPage,int page);
+
     public long getCountByParameters(String name,String color,String category,String feature);
     public List<Product> getProdByParamWithPagination(String name,String color,String category,String feature,int resultsPerPage,int page);
+
     public void addProduct (Product product);
 
 }

@@ -59,8 +59,8 @@ public class DAOImpl implements DAO {
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "select count (*) from Product p");
         return (Long)query.uniqueResult();
-
     }
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Product> getAllProdWithPagination(int resultsPerPage,int page) {
@@ -72,11 +72,10 @@ public class DAOImpl implements DAO {
         else
             query.setFirstResult((page - 1) * resultsPerPage);
         return query.setResultTransformer(Transformers.aliasToBean(Product.class)).list();
-
     }
 
     @Override
-    public long getCountByParameters(String name,String color,String category,String feature){
+    public long getCountByParameters(String name, String color, String category, String feature){
         if(color.equals(""))
             color = "%";
         if(category.equals(""))
@@ -90,11 +89,12 @@ public class DAOImpl implements DAO {
         query.setParameter("category", category);
         query.setParameter("feature", feature);
         return  (Long)query.uniqueResult();
-
     }
+
     @SuppressWarnings("unchecked")
     @Override
-    public List<Product> getProdByParamWithPagination(String name,String color,String category,String feature,int resultsPerPage,int page) {
+    public List<Product> getProdByParamWithPagination(String name, String color, String category, String feature,
+                                                      int resultsPerPage,int page) {
 
         if(color.equals(""))
             color = "%";
@@ -117,22 +117,18 @@ public class DAOImpl implements DAO {
         else
             query.setFirstResult((page - 1) * resultsPerPage);
         return query.setResultTransformer(Transformers.aliasToBean(Product.class)).list();
-
     }
+
     @Override
     public Product getProductById(Long id){
         Session session = this.sessionFactory.getCurrentSession();
         return session.get(Product.class, id);
-
     }
 
+    @Override
     public void addProduct (Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.save(product);
     }
-
-
-
-
 
 }
