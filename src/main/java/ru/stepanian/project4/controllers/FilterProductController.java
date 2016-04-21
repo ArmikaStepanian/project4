@@ -51,15 +51,15 @@ public class FilterProductController {
         model.addAttribute("pageHelper", pageHelper);
 
         long count = productService.getCountByParameters(productModel.getName(), productModel.getColor(),
-                productModel.getCategory(), productModel.getFeature());
+                                                         productModel.getCategory(), productModel.getFeature());
         model.addAttribute("count", count);
 
         pageHelper.setCount(count);
         pageHelper.setResultsPerPage(6);
         pageHelper.setCurrentPage(page);
         List <Product> products = productService.getProdByParamWithPagination(productModel.getName(), productModel.getColor(),
-                productModel.getCategory(), productModel.getFeature(),
-                pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
+                                                                              productModel.getCategory(), productModel.getFeature(),
+                                                                              pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
 
         model.addAttribute("products", products);
 

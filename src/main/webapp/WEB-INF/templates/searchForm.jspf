@@ -38,7 +38,7 @@
 
 </form:form>
 
-<%-- Script to clear search-form after submit --%>
+<%-- start Script to clear search-form after submit --%>
 
 <script type="text/javascript">
 
@@ -81,5 +81,7 @@
     }
 
 </script>
+
+<%-- end Script to clear search-form after submit --%>
 
 </div> <!-- end .header -->
