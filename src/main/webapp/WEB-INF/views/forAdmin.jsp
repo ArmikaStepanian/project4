@@ -10,6 +10,7 @@
 </head>
 <body>
 
+<c:if test="${empty productModel.id}">
 <form:form onsubmit="return checkForm(this)" name="form" method="get" action="addProduct" commandName="productModel" cssClass="form-pm" >
 
     <p>
@@ -23,9 +24,7 @@
     <p>
         <form:select id="color" path = "color">
             <form:option value=""><b>Цвет</b></form:option>
-            <c:forEach items="${colors}" var="c" >
-                <form:option value="${c.id}">${c.name}</form:option>
-            </c:forEach>
+            <form:options items="${colors}" itemValue="id" itemLabel="name" />
         </form:select>
     <br>
         <output id="err_color" class="error"></output>
@@ -34,9 +33,7 @@
     <p>
         <form:select id="category" path = "category">
             <form:option value=""><b>Категория</b></form:option>
-            <c:forEach items="${categories}" var="cat" >
-                <form:option value="${cat.id}">${cat.name}</form:option>
-            </c:forEach>
+            <form:options items="${categories}" itemValue="id" itemLabel="name" />
         </form:select>
     <br>
         <output id="err_category" class="error"></output>
@@ -45,8 +42,7 @@
     <p>
         <b>Наличие декоративной надписи:</b>
     <br>
-        <form:radiobutton name="feature" path="feature" value="1" label="да" /> <%--Only hard coding--%>
-        <form:radiobutton name="feature" path="feature" value="2" label="нет" />
+        <form:radiobuttons path="feature" items="${features}" itemValue="id" itemLabel="name" />
     <br>
         <output id="err_feature" class="error"></output>
     </p>
@@ -57,6 +53,60 @@
     </p>
 
 </form:form>
+</c:if>
+
+<c:if test="${!empty productModel.id}">
+
+    <form:form onsubmit="return checkForm(this)" name="form" method="get" action="editProduct" commandName="productModel" cssClass="form-pm" >
+
+    <p>
+
+        <b>Id:</b>
+        <form:input id="id" path="id" readonly="true" />
+
+    </p>
+
+
+    <p>
+        <b>Имя:</b>
+        <br>
+        <form:input id="name" path="name" />
+        <br>
+        <output id="err_name" class="error" ></output>
+    </p>
+
+    <p>
+        <form:select id="color" path = "color">
+            <form:option value=""><b>Цвет</b></form:option>
+            <form:options items="${colors}" itemValue="id" itemLabel="name" />
+        </form:select>
+        <br>
+        <output id="err_color" class="error"></output>
+    </p>
+
+    <p>
+        <form:select id="category" path = "category">
+            <form:option value=""><b>Категория</b></form:option>
+            <form:options items="${categories}" itemValue="id" itemLabel="name" />
+        </form:select>
+        <br>
+        <output id="err_category" class="error"></output>
+    </p>
+
+    <p>
+        <b>Наличие декоративной надписи:</b>
+        <br>
+        <form:radiobuttons path="feature" items="${features}" itemValue="id" itemLabel="name" />
+        <br>
+        <output id="err_feature" class="error"></output>
+    </p>
+    <p>
+        <input type="submit" value="Редактировать" />
+        <a href="<c:url value="//addProductPage" />" >Отмена</a>
+    </p>
+    </form:form>
+</c:if>
+
 
 <%-- start Script to clear search-form after submit --%>
 <script type="text/javascript">
@@ -163,16 +213,16 @@
 <c:if test="${!(products.isEmpty())}">
     <c:if test="${pageHelper.isPagination() == true}">
         <p>Найдено товаров: ${count}</p>
-        <p><a href="<c:if test="${pageHelper.getPreviousPage()!=-1}">?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${pageHelper.getPreviousPage()}</c:if>">&laquo;&nbsp;&nbsp;</a>
+        <p><a href="<c:if test="${pageHelper.getPreviousPage()!=-1}">?id=${productModel.id}&page=${pageHelper.getPreviousPage()}</c:if>">&laquo;&nbsp;&nbsp;</a>
             <c:set var="count" value="1"></c:set>
             <c:forEach begin="1" end="${pageHelper.getPagesCount()}">
-                <a href="?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${count}">${count}&nbsp;&nbsp;</a>
+                <a href="?id=${productModel.id}&page=${count}">${count}&nbsp;&nbsp;</a>
                 <c:set var="count" value="${count + 1}"></c:set>
             </c:forEach>
-            <a href="<c:if test="${pageHelper.getNextPage()!=-1}">?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${pageHelper.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a></p>
+            <a href="<c:if test="${pageHelper.getNextPage()!=-1}">?id=${productModel.id}&page=${pageHelper.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a></p>
     </c:if>
 </div>
-<%-- end Pagination --%>
+
 
     <table class="form-pm">
         <tr>
@@ -191,14 +241,13 @@
                 <td>${pr.color}</td>
                 <td>${pr.category}</td>
                 <td>${pr.feature}</td>
-                <td><a href="<c:url value='/edit/${person.id}' />" >Edit</a></td>
+                <td><a href="<c:url value="./editProductPage?id=${pr.id}&page=${pageHelper.getCurrentPage()}" />" >Edit</a></td>
                 <td><a href="<c:url value='/remove/${person.id}' />" >Delete</a></td>
             </tr>
         </c:forEach>
     </table>
-
-</c:if>
-
+    </c:if>
+<%-- end Pagination and Table--%>
 </body>
 
 </html>

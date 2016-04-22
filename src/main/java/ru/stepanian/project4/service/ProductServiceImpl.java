@@ -48,19 +48,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public long getCountAll(){return dao.getCountAll();}
+    public long getCountAll() { return dao.getCountAll(); }
 
     @Transactional
     @Override
-    public List<Product> getAllProdWithPagination(int resultsPerPage,int page){return dao.getAllProdWithPagination(resultsPerPage, page);}
+    public List<Product> getAllProdWithPagination(int resultsPerPage,int page) { return dao.getAllProdWithPagination(resultsPerPage, page); }
 
     @Transactional
     @Override
     public long getCountByParameters(String name,String color,String category,String feature)
-    {return dao.getCountByParameters(name, color, category, feature);}
+    { return dao.getCountByParameters(name, color, category, feature); }
 
     @Transactional
     @Override
-    public void addProduct (Product product){ dao.addProduct(product);}
+    public void addProduct (Product product) { dao.addProduct(product); }
+
+    @Transactional
+    @Override
+    public void updateProduct (Product product) { dao.updateProduct(product); }
 
 }

@@ -130,5 +130,10 @@ public class DAOImpl implements DAO {
         Session session = sessionFactory.getCurrentSession();
         session.save(product);
     }
+    @Override
+    public void updateProduct (Product product) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(product);
+    }
 
 }

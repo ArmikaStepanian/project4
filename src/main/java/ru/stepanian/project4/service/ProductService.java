@@ -23,5 +23,7 @@ public interface ProductService {
     public List<Product> getAllProdWithPagination(int resultsPerPage,int page);
     public long getCountByParameters(String name,String color,String category,String feature);
     public List<Product> getProdByParamWithPagination(String name,String color,String category,String feature,int resultsPerPage,int page);
+
     public void addProduct (Product product);
+    public void updateProduct (Product product);
 }

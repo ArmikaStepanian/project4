@@ -22,15 +22,30 @@ import java.util.List;
  */
 
 @Controller
-public class AddProductController {
+public class EditProductController {
 
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/addProductPage", method = RequestMethod.GET)
-    public String addProductPage (@ModelAttribute("productModel") ProductModel productModel,
+    @RequestMapping(value = "/editProductPage", method = RequestMethod.GET)
+    public String editProductPage(@ModelAttribute("productModel") ProductModel productModel,
                                   @RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                  ModelMap model){
+                                  @RequestParam(value = "id") Long id,
+                                  ModelMap model) {
+
+        Product existingProduct = productService.getProductById(id);
+
+        String name = existingProduct.getName();
+        String color = existingProduct.getColor().getName();
+        String category = existingProduct.getCategory().getName();
+        String feature = existingProduct.getFeature().getName();
+
+        productModel.setName(name);
+        productModel.setColor(color);
+        productModel.setCategory(category);
+        productModel.setFeature(feature);
+
+        model.addAttribute("productModel", productModel);
 
         model.addAttribute("colors", productService.listColors());
         model.addAttribute("categories", productService.listCategories());
@@ -43,28 +58,29 @@ public class AddProductController {
         pageHelper.setCount(count);
         pageHelper.setResultsPerPage(20);
         pageHelper.setCurrentPage(page);
-        List <Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
+        List<Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
         model.addAttribute("products", products);
 
         return "forAdmin";
     }
 
-    @RequestMapping(value = "/addProduct", method = RequestMethod.GET)
-    public String addProduct (@ModelAttribute("productModel") ProductModel productModel,
+    @RequestMapping(value = "/editProduct", method = RequestMethod.GET)
+    public String editProduct(@ModelAttribute("productModel") ProductModel productModel,
+                              @RequestParam(value = "id") Long id,
                               @RequestParam(value = "name") String name,
                               @RequestParam(value = "color") Integer colorId,
                               @RequestParam(value = "category") Integer categoryId,
                               @RequestParam(value = "feature") Byte featureId) {
 
         Product product = new Product();
+        product.setId(id);
         product.setName(name);
         product.setColor(new Colors(colorId));
         product.setCategory(new Category(categoryId));
         product.setFeature(new Feature(featureId));
 
-        productService.addProduct(product);
+        productService.updateProduct(product);
 
         return "redirect:/addProductPage";
-
     }
 }

@@ -27,5 +27,6 @@ public interface DAO {
     public List<Product> getProdByParamWithPagination(String name,String color,String category,String feature,int resultsPerPage,int page);
 
     public void addProduct (Product product);
+    public void updateProduct (Product product);
 
 }

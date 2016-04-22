@@ -6,9 +6,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.stepanian.project4.entities.Category;
-import ru.stepanian.project4.entities.Colors;
-import ru.stepanian.project4.entities.Feature;
 import ru.stepanian.project4.entities.Product;
 import ru.stepanian.project4.helper.PaginationHelper;
 import ru.stepanian.project4.model.ProductModel;
@@ -30,12 +27,9 @@ public class AllProductController {
     public String doGet(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                         ModelMap model) {
 
-        List<Colors> colors = productService.listColors();
-        model.addAttribute("colors", colors);
-        List<Category> categories = productService.listCategories();
-        model.addAttribute("categories", categories);
-        List<Feature> features = productService.listFeatures();
-        model.addAttribute("features", features);
+        model.addAttribute("colors", productService.listColors());
+        model.addAttribute("categories", productService.listCategories());
+        model.addAttribute("features", productService.listFeatures());
 
         model.addAttribute("productModel", new ProductModel());
 

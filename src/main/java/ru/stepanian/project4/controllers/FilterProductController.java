@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.stepanian.project4.entities.Category;
-import ru.stepanian.project4.entities.Colors;
-import ru.stepanian.project4.entities.Feature;
 import ru.stepanian.project4.entities.Product;
 import ru.stepanian.project4.helper.PaginationHelper;
 import ru.stepanian.project4.model.ProductModel;
@@ -40,12 +37,9 @@ public class FilterProductController {
         productModel.setCategory(category);
         productModel.setFeature(feature);
 
-        List<Colors> colors = productService.listColors();
-        model.addAttribute("colors", colors);
-        List<Category> categories = productService.listCategories();
-        model.addAttribute("categories", categories);
-        List<Feature> features = productService.listFeatures();
-        model.addAttribute("features", features);
+        model.addAttribute("colors", productService.listColors());
+        model.addAttribute("categories", productService.listCategories());
+        model.addAttribute("features", productService.listFeatures());
 
         PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);
