@@ -1,7 +1,6 @@
 package ru.stepanian.project4.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by Stepanian on 08.04.2016.
@@ -17,22 +16,18 @@ public class Product {
     private Long id;
 
     @Column
-    @NotNull(message = "Поле обязательно к заполнению!")
     private String name;
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="color",referencedColumnName="id")
-    @NotNull (message = "Поле обязательно к заполнению!")
     private Colors color;
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="feature",referencedColumnName="id")
-    @NotNull (message = "Поле обязательно к заполнению!")
     private Feature feature;
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="category",referencedColumnName="id")
-    @NotNull (message = "Поле обязательно к заполнению!")
     private Category category;
 
     public Long getId() {

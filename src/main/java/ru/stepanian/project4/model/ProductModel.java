@@ -7,13 +7,9 @@ package ru.stepanian.project4.model;
 public class ProductModel {
 
     private Long id;
-
     private String name;
-
     private String color;
-
     private String category;
-
     private String feature = "";
 
     public Long getId() {

@@ -47,17 +47,60 @@
     <br>
         <form:radiobutton name="feature" path="feature" value="1" label="да" /> <%--Only hard coding--%>
         <form:radiobutton name="feature" path="feature" value="2" label="нет" />
-    </p>
     <br>
         <output id="err_feature" class="error"></output>
     </p>
 
     <p>
         <input type="submit" value="Добавить" />
-        <input type="reset" value="Сбросить" />
+        <input type="button" value="Сбросить" onclick="clearForm(this.form);" />
     </p>
 
 </form:form>
+
+<%-- start Script to clear search-form after submit --%>
+<script type="text/javascript">
+
+    function clearForm(form) {
+
+        var elements = form.elements;
+
+        form.reset();
+
+        for(i=0; i < elements.length; i++) {
+
+            field_type = elements[i].type.toLowerCase();
+
+            switch(field_type) {
+
+                case "text":
+                case "password":
+                case "textarea":
+                case "hidden":
+                case "output":
+                    elements[i].value = "";
+                    break;
+
+                case "radio":
+                case "checkbox":
+                    if (elements[i].checked) {
+                        elements[i].checked = false;
+                    }
+                    break;
+
+                case "select-one":
+                case "select-multi":
+                    elements[i].selectedIndex = 0;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+</script>
+<%-- end Script to clear search-form after submit --%>
 
 <%-- start Script for checking forms' empty fields --%>
 <script type="text/javascript">
@@ -91,15 +134,15 @@
 // copyright Stephen Chapman, 15th Nov 2004,14th Sep 2005
 // you may copy this function but please keep the copyright notice with it
         var features = (form.feature);
-        var ind = -1;
+        var index = -1;
         for (var i=features.length-1; i > -1; i--) {
 
             if (features[i].checked) {
 
-                ind = i; i = -1;
+                index = i; i = -1;
             }
         }
-        if (ind > -1) {
+        if (index > -1) {
 
             document.getElementById('err_feature').innerHTML="";
         }
@@ -108,7 +151,6 @@
             document.getElementById('err_feature').innerHTML='Выберите значение';
         return false;
         }
-
 
         return true;
     }

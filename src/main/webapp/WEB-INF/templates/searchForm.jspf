@@ -58,7 +58,7 @@
                 case "password":
                 case "textarea":
                 case "hidden":
-
+                case "output":
                     elements[i].value = "";
                     break;
 
