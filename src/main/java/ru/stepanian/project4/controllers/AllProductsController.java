@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Controller
-public class AllProductController {
+public class AllProductsController {
 
     @Autowired
     private ProductService productService;
@@ -35,18 +35,15 @@ public class AllProductController {
 
         PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);
-
         long count = productService.getCountAll();
         model.addAttribute("count", count);
-
         pageHelper.setCount(count);
         pageHelper.setResultsPerPage(6);
         pageHelper.setCurrentPage(page);
-        List <Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
+        List <Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(),
+                                                                          pageHelper.getCurrentPage());
         model.addAttribute("products", products);
 
         return "products";
-
     }
-
 }

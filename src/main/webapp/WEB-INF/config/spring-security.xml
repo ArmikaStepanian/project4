@@ -24,7 +24,7 @@
     </beans:bean>
 
     <beans:bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-        <beans:constructor-arg name="strength" value="12" />
+        <beans:constructor-arg name="strength" value="4" />
     </beans:bean>
 
     <http auto-config="true" use-expressions="true">
@@ -38,7 +38,7 @@
                 username-parameter="j_username"
                 password-parameter="j_password"
                 default-target-url="/"
-                authentication-failure-url="/?login_failed=1" />
+                authentication-failure-url="/auth?login_failed=1" />
 
         <logout logout-url="/logout" logout-success-url="/" />
 

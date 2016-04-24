@@ -6,10 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.stepanian.project4.entities.Category;
-import ru.stepanian.project4.entities.Colors;
-import ru.stepanian.project4.entities.Feature;
-import ru.stepanian.project4.entities.Product;
+import ru.stepanian.project4.entities.*;
 
 import java.util.List;
 
@@ -27,43 +24,45 @@ public class DAOImpl implements DAO {
         this.sessionFactory = sessionFactory;
     }
 
-    /* as - обязательно, это ключи для карты */
-    /* p.color - означает вытащить и color.id и color.name */
-    /* aliasToBean - привести к виду бина */
     @SuppressWarnings("unchecked")
     @Override
-    public List<Colors> listColors(){
+    public List<Colors> listColors() {
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "from Colors c order by c.name");
-        return (List<Colors>)query.list();
+        return (List<Colors>) query.list();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Category> listCategories(){
+    public List<Category> listCategories() {
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "from Category cat order by cat.name");
-        return (List<Category>)query.list();
+        return (List<Category>) query.list();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Feature> listFeatures(){
+    public List<Feature> listFeatures() {
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "from Feature");
-        return (List<Feature>)query.list();
+        return (List<Feature>) query.list();
     }
 
     @Override
-    public long getCountAll(){
+    public long getCountAll() {
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "select count (*) from Product p");
-        return (Long)query.uniqueResult();
+        return (Long) query.uniqueResult();
     }
 
+    /**
+     * as - обязательно, это ключи для карты
+     * p.color - означает вытащить и color.id и color.name
+     * aliasToBean - привести к виду бина
+     */
     @SuppressWarnings("unchecked")
     @Override
-    public List<Product> getAllProdWithPagination(int resultsPerPage,int page) {
+    public List<Product> getAllProdWithPagination(int resultsPerPage, int page) {
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "select p.id as id, p.name as name, p.color as color, p.feature as feature, p.category as category from Product p order by p.id");
         query.setMaxResults(resultsPerPage);
@@ -75,39 +74,39 @@ public class DAOImpl implements DAO {
     }
 
     @Override
-    public long getCountByParameters(String name, String color, String category, String feature){
-        if(color.equals(""))
+    public long getCountByParameters(String name, String color, String category, String feature) {
+        if (color.equals(""))
             color = "%";
-        if(category.equals(""))
+        if (category.equals(""))
             category = "%";
-        if(feature.equals(""))
+        if (feature.equals(""))
             feature = "%";
         Query query = sessionFactory.getCurrentSession().createQuery("" +
                 "select count (*) from Product p where p.name like :name and p.color.name like :color and p.feature.name like :feature and p.category.name like :category");
-        query.setParameter("name", (name +"%"));
+        query.setParameter("name", (name + "%"));
         query.setParameter("color", color);
         query.setParameter("category", category);
         query.setParameter("feature", feature);
-        return  (Long)query.uniqueResult();
+        return (Long) query.uniqueResult();
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<Product> getProdByParamWithPagination(String name, String color, String category, String feature,
-                                                      int resultsPerPage,int page) {
+                                                      int resultsPerPage, int page) {
 
-        if(color.equals(""))
+        if (color.equals(""))
             color = "%";
-        if(category.equals(""))
+        if (category.equals(""))
             category = "%";
-        if(feature.equals(""))
+        if (feature.equals(""))
             feature = "%";
 
         String str = "select p.id as id, p.name as name, p.color as color, p.feature as feature, p.category as category from Product p " +
                 "where p.name like :name and p.color.name like :color and p.feature.name like :feature and p.category.name like :category order by p.id";
 
         Query query = sessionFactory.getCurrentSession().createQuery(str).setResultTransformer(Transformers.aliasToBean(Product.class));
-        query.setParameter("name", (name +"%"));
+        query.setParameter("name", (name + "%"));
         query.setParameter("color", color);
         query.setParameter("category", category);
         query.setParameter("feature", feature);
@@ -120,20 +119,38 @@ public class DAOImpl implements DAO {
     }
 
     @Override
-    public Product getProductById(Long id){
+    public Product getProductById(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         return session.get(Product.class, id);
     }
 
     @Override
-    public void addProduct (Product product) {
+    public void addProduct(Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.save(product);
     }
+
     @Override
-    public void updateProduct (Product product) {
+    public void updateProduct(Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.update(product);
     }
 
+    @Override
+    public void deleteProduct(Product product) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(product);
+    }
+
+    @Override
+    public void addUser(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
+    }
+
+    @Override
+    public void addGroupMember(GroupMember member) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(member);
+    }
 }

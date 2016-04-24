@@ -5,12 +5,21 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Welcome to my shop</title>
+    <title>Hello, Admin</title>
     <link href="<c:url value="/resources/css/product.css" />" rel="stylesheet">
 </head>
 <body>
 
+<div style="float: left">
+<form  action="<c:url value='/logout' />" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    <input type="submit" value="Выйти"/>
+</form>
+</div>
+
+<%-- start Form for adding product --%>
 <c:if test="${empty productModel.id}">
+
 <form:form onsubmit="return checkForm(this)" name="form" method="get" action="addProduct" commandName="productModel" cssClass="form-pm" >
 
     <p>
@@ -20,7 +29,6 @@
     <br>
         <output id="err_name" class="error" ></output>
     </p>
-
     <p>
         <form:select id="color" path = "color">
             <form:option value=""><b>Цвет</b></form:option>
@@ -29,7 +37,6 @@
     <br>
         <output id="err_color" class="error"></output>
     </p>
-
     <p>
         <form:select id="category" path = "category">
             <form:option value=""><b>Категория</b></form:option>
@@ -38,7 +45,6 @@
     <br>
         <output id="err_category" class="error"></output>
     </p>
-
     <p>
         <b>Наличие декоративной надписи:</b>
     <br>
@@ -46,27 +52,25 @@
     <br>
         <output id="err_feature" class="error"></output>
     </p>
-
     <p>
         <input type="submit" value="Добавить" />
         <input type="button" value="Сбросить" onclick="clearForm(this.form);" />
     </p>
 
 </form:form>
-</c:if>
 
+</c:if>
+<%-- end Form for adding product --%>
+
+<%-- start Form for editing product --%>
 <c:if test="${!empty productModel.id}">
 
     <form:form onsubmit="return checkForm(this)" name="form" method="get" action="editProduct" commandName="productModel" cssClass="form-pm" >
 
     <p>
-
         <b>Id:</b>
-        <form:input id="id" path="id" readonly="true" />
-
+        <form:input path="id" readonly="true" />
     </p>
-
-
     <p>
         <b>Имя:</b>
         <br>
@@ -74,7 +78,6 @@
         <br>
         <output id="err_name" class="error" ></output>
     </p>
-
     <p>
         <form:select id="color" path = "color">
             <form:option value=""><b>Цвет</b></form:option>
@@ -83,7 +86,6 @@
         <br>
         <output id="err_color" class="error"></output>
     </p>
-
     <p>
         <form:select id="category" path = "category">
             <form:option value=""><b>Категория</b></form:option>
@@ -92,7 +94,6 @@
         <br>
         <output id="err_category" class="error"></output>
     </p>
-
     <p>
         <b>Наличие декоративной надписи:</b>
         <br>
@@ -104,9 +105,11 @@
         <input type="submit" value="Редактировать" />
         <a href="<c:url value="//addProductPage" />" >Отмена</a>
     </p>
-    </form:form>
-</c:if>
 
+    </form:form>
+
+</c:if>
+<%-- end Form for editing product --%>
 
 <%-- start Script to clear search-form after submit --%>
 <script type="text/javascript">
@@ -242,12 +245,13 @@
                 <td>${pr.category}</td>
                 <td>${pr.feature}</td>
                 <td><a href="<c:url value="./editProductPage?id=${pr.id}&page=${pageHelper.getCurrentPage()}" />" >Edit</a></td>
-                <td><a href="<c:url value='/remove/${person.id}' />" >Delete</a></td>
+                <td><a href="<c:url value="./deleteProduct?id=${pr.id}" />" onclick="return confirm('Удалить запись?')">Delete</a></td>
             </tr>
         </c:forEach>
     </table>
     </c:if>
 <%-- end Pagination and Table--%>
+
 </body>
 
 </html>

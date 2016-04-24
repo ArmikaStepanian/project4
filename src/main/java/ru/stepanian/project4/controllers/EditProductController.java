@@ -58,14 +58,15 @@ public class EditProductController {
         pageHelper.setCount(count);
         pageHelper.setResultsPerPage(20);
         pageHelper.setCurrentPage(page);
-        List<Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
+        List<Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(),
+                                                                         pageHelper.getCurrentPage());
         model.addAttribute("products", products);
 
         return "forAdmin";
     }
 
     @RequestMapping(value = "/editProduct", method = RequestMethod.GET)
-    public String editProduct(@ModelAttribute("productModel") ProductModel productModel,
+    public String editProd(@ModelAttribute("productModel") ProductModel productModel,
                               @RequestParam(value = "id") Long id,
                               @RequestParam(value = "name") String name,
                               @RequestParam(value = "color") Integer colorId,

@@ -2,11 +2,12 @@ package ru.stepanian.project4.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.stepanian.project4.entities.Product;
+import ru.stepanian.project4.model.ProductModel;
 import ru.stepanian.project4.service.ProductService;
 
 /**
@@ -14,18 +15,19 @@ import ru.stepanian.project4.service.ProductService;
  */
 
 @Controller
-public class OneProductController {
+public class DeleteProductController {
 
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/showProduct", method = RequestMethod.GET)
-    public String showOneProduct (@RequestParam("id") Long id,
-                                  ModelMap model) throws NullPointerException {
+    @RequestMapping(value = "/deleteProduct", method = RequestMethod.GET)
+    public String deleteProd(@ModelAttribute("productModel") ProductModel productModel,
+                              @RequestParam(value = "id") Long id) {
 
         Product product = productService.getProductById(id);
-        if (! (product.equals(null)))
-            model.addAttribute("product", product);
-        return "showProduct";
+
+        productService.deleteProduct(product);
+
+        return "redirect:/addProductPage";
     }
 }

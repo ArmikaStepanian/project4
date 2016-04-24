@@ -8,5 +8,7 @@
       <mapping class="ru.stepanian.project4.entities.Colors"/>
       <mapping class="ru.stepanian.project4.entities.Feature"/>
       <mapping class="ru.stepanian.project4.entities.Category"/>
+      <mapping class="ru.stepanian.project4.entities.User"/>
+      <mapping class="ru.stepanian.project4.entities.GroupMember"/>
   </session-factory>
 </hibernate-configuration>

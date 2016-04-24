@@ -32,6 +32,7 @@ public class FilterProductController {
                            @RequestParam(value = "category", defaultValue = "", required = false) String category,
                            @RequestParam(value = "feature", defaultValue = "", required = false) String feature,
                            ModelMap model) {
+
         productModel.setName(name);
         productModel.setColor(color);
         productModel.setCategory(category);
@@ -43,11 +44,9 @@ public class FilterProductController {
 
         PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);
-
         long count = productService.getCountByParameters(productModel.getName(), productModel.getColor(),
                                                          productModel.getCategory(), productModel.getFeature());
         model.addAttribute("count", count);
-
         pageHelper.setCount(count);
         pageHelper.setResultsPerPage(6);
         pageHelper.setCurrentPage(page);
@@ -58,7 +57,5 @@ public class FilterProductController {
         model.addAttribute("products", products);
 
         return "products";
-
     }
-
 }

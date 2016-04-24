@@ -43,14 +43,15 @@ public class AddProductController {
         pageHelper.setCount(count);
         pageHelper.setResultsPerPage(20);
         pageHelper.setCurrentPage(page);
-        List <Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(), pageHelper.getCurrentPage());
+        List <Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(),
+                                                                          pageHelper.getCurrentPage());
         model.addAttribute("products", products);
 
         return "forAdmin";
     }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.GET)
-    public String addProduct (@ModelAttribute("productModel") ProductModel productModel,
+    public String addProd (@ModelAttribute("productModel") ProductModel productModel,
                               @RequestParam(value = "name") String name,
                               @RequestParam(value = "color") Integer colorId,
                               @RequestParam(value = "category") Integer categoryId,
@@ -65,6 +66,5 @@ public class AddProductController {
         productService.addProduct(product);
 
         return "redirect:/addProductPage";
-
     }
 }

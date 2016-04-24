@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.stepanian.project4.dao.DAO;
-import ru.stepanian.project4.entities.Category;
-import ru.stepanian.project4.entities.Colors;
-import ru.stepanian.project4.entities.Feature;
-import ru.stepanian.project4.entities.Product;
+import ru.stepanian.project4.entities.*;
 
 import java.util.List;
 
@@ -39,8 +36,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<Product> getProdByParamWithPagination(String name,String color,String category,String feature,int resultsPerPage,int page)
-    { return dao.getProdByParamWithPagination(name, color, category,feature, resultsPerPage, page); }
+    public List<Product> getProdByParamWithPagination(String name, String color, String category, String feature, int resultsPerPage, int page)
+    { return dao.getProdByParamWithPagination(name, color, category, feature, resultsPerPage, page); }
 
     @Transactional
     @Override
@@ -56,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public long getCountByParameters(String name,String color,String category,String feature)
+    public long getCountByParameters(String name, String color, String category, String feature)
     { return dao.getCountByParameters(name, color, category, feature); }
 
     @Transactional
@@ -66,5 +63,17 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void updateProduct (Product product) { dao.updateProduct(product); }
+
+    @Transactional
+    @Override
+    public void deleteProduct (Product product) { dao.deleteProduct(product); }
+
+    @Transactional
+    @Override
+    public void addUser (User user) { dao.addUser(user); }
+
+    @Transactional
+    @Override
+    public void addGroupMember(GroupMember member) { dao.addGroupMember(member); }
 
 }

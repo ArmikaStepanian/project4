@@ -3,7 +3,26 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<%@include file="/WEB-INF/templates/loginForm.jspf" %>
+<%-- start Login, Logout --%>
+<div style="float: left">
+<p>
+    <a href="<c:url value="/auth" />" >Войти</a>
+</p>
+
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+    <p>
+        <a href="./addProductPage"><c:out value="ДОБАВИТЬ ТОВАР"/></a>
+    </p>
+</sec:authorize>
+
+<sec:authorize access="hasRole('ROLE_USER')">
+    <form  action="<c:url value='/logout' />" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <input type="submit" value="Выйти"/>
+    </form>
+</sec:authorize>
+</div>
+<%-- end Login, Logout --%>
 
 <%@include file="/WEB-INF/templates/welcome.jspf" %>
 
@@ -11,8 +30,7 @@
 
     <div class="book-list">
 
-     <%-- start Pagination --%>
-
+<%-- start Pagination --%>
     <c:if test="${!(products.isEmpty())}">
         <c:if test="${pageHelper.isPagination() == true}">
             <p>Найдено товаров: ${count}</p>
@@ -24,8 +42,6 @@
                 </c:forEach>
                 <a href="<c:if test="${pageHelper.getNextPage()!=-1}">?name=${productModel.name}&color=${productModel.color}&category=${productModel.category}&feature=${productModel.feature}&page=${pageHelper.getNextPage()}</c:if>">&nbsp;&nbsp;&raquo;</a></p>
         </c:if>
-
-        <%-- end Pagination --%>
 
         <c:forEach items="${products}" var="pr" >
             <div class="item">
@@ -46,6 +62,7 @@
         </c:if>
 
     </div>
+<%-- end Pagination and table --%>
 
 <%@include file="/WEB-INF/templates/footer.jspf" %>
 
