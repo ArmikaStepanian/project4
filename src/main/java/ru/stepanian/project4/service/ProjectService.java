@@ -1,6 +1,11 @@
 package ru.stepanian.project4.service;
 
-import ru.stepanian.project4.entities.*;
+import ru.stepanian.project4.entities.Category;
+import ru.stepanian.project4.entities.Colors;
+import ru.stepanian.project4.entities.Feature;
+import ru.stepanian.project4.entities.Product;
+import ru.stepanian.project4.entities.GroupMember;
+import ru.stepanian.project4.entities.User;
 
 import java.util.List;
 
@@ -8,7 +13,7 @@ import java.util.List;
  * Created by Stepanian on 08.04.2016.
  */
 
-public interface ProductService {
+public interface ProjectService {
 
     public List<Colors> listColors();
     public List<Category> listCategories();
@@ -26,7 +31,6 @@ public interface ProductService {
     public void updateProduct (Product product);
     public void deleteProduct (Product product);
 
-    public void addUser (User user);
+    public void addUser(User user);
     public void addGroupMember(GroupMember member);
-
 }

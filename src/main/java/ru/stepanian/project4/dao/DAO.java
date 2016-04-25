@@ -1,6 +1,11 @@
 package ru.stepanian.project4.dao;
 
-import ru.stepanian.project4.entities.*;
+import ru.stepanian.project4.entities.Category;
+import ru.stepanian.project4.entities.Colors;
+import ru.stepanian.project4.entities.Feature;
+import ru.stepanian.project4.entities.Product;
+import ru.stepanian.project4.entities.GroupMember;
+import ru.stepanian.project4.entities.User;
 
 import java.util.List;
 
@@ -26,7 +31,7 @@ public interface DAO {
     public void updateProduct (Product product);
     public void deleteProduct (Product product);
 
-    public void addUser (User user);
-    public void addGroupMember (GroupMember member);
+    public void addUser(User user);
+    public void addGroupMember(GroupMember member);
 
 }

@@ -13,7 +13,7 @@ import ru.stepanian.project4.entities.Feature;
 import ru.stepanian.project4.entities.Product;
 import ru.stepanian.project4.helper.PaginationHelper;
 import ru.stepanian.project4.model.ProductModel;
-import ru.stepanian.project4.service.ProductService;
+import ru.stepanian.project4.service.ProjectService;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import java.util.List;
 public class EditProductController {
 
     @Autowired
-    private ProductService productService;
+    private ProjectService projectService;
 
     @RequestMapping(value = "/editProductPage", method = RequestMethod.GET)
     public String editProductPage(@ModelAttribute("productModel") ProductModel productModel,
@@ -33,7 +33,7 @@ public class EditProductController {
                                   @RequestParam(value = "id") Long id,
                                   ModelMap model) {
 
-        Product existingProduct = productService.getProductById(id);
+        Product existingProduct = projectService.getProductById(id);
 
         String name = existingProduct.getName();
         String color = existingProduct.getColor().getName();
@@ -47,18 +47,18 @@ public class EditProductController {
 
         model.addAttribute("productModel", productModel);
 
-        model.addAttribute("colors", productService.listColors());
-        model.addAttribute("categories", productService.listCategories());
-        model.addAttribute("features", productService.listFeatures());
+        model.addAttribute("colors", projectService.listColors());
+        model.addAttribute("categories", projectService.listCategories());
+        model.addAttribute("features", projectService.listFeatures());
 
         PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);
-        long count = productService.getCountAll();
+        long count = projectService.getCountAll();
         model.addAttribute("count", count);
         pageHelper.setCount(count);
         pageHelper.setResultsPerPage(20);
         pageHelper.setCurrentPage(page);
-        List<Product> products = productService.getAllProdWithPagination(pageHelper.getResultsPerPage(),
+        List<Product> products = projectService.getAllProdWithPagination(pageHelper.getResultsPerPage(),
                                                                          pageHelper.getCurrentPage());
         model.addAttribute("products", products);
 
@@ -80,7 +80,7 @@ public class EditProductController {
         product.setCategory(new Category(categoryId));
         product.setFeature(new Feature(featureId));
 
-        productService.updateProduct(product);
+        projectService.updateProduct(product);
 
         return "redirect:/addProductPage";
     }

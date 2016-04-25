@@ -14,7 +14,7 @@
     <div style="float: left">
         <h3>Авторизация</h3>
         <form action="<c:url value='j_spring_security_check' />" method="post">
-            <p><input type="text" name="j_username" placeholder="Username" /></p>
+            <p><input type="text" name="j_username" placeholder="Login" /></p>
             <p><input type="password" name="j_password" placeholder="Password" /></p>
             <p class="remember_me">
                 <label>

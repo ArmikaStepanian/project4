@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.stepanian.project4.entities.Product;
 import ru.stepanian.project4.model.ProductModel;
-import ru.stepanian.project4.service.ProductService;
-
+import ru.stepanian.project4.service.ProjectService;
 /**
  * Created by Stepanian on 21.04.2016.
  */
@@ -18,15 +17,15 @@ import ru.stepanian.project4.service.ProductService;
 public class DeleteProductController {
 
     @Autowired
-    private ProductService productService;
+    private ProjectService projectService;
 
     @RequestMapping(value = "/deleteProduct", method = RequestMethod.GET)
     public String deleteProd(@ModelAttribute("productModel") ProductModel productModel,
                               @RequestParam(value = "id") Long id) {
 
-        Product product = productService.getProductById(id);
+        Product product = projectService.getProductById(id);
 
-        productService.deleteProduct(product);
+        projectService.deleteProduct(product);
 
         return "redirect:/addProductPage";
     }

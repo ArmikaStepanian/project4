@@ -7,6 +7,8 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.stepanian.project4.entities.*;
+import ru.stepanian.project4.entities.GroupMember;
+import ru.stepanian.project4.entities.User;
 
 import java.util.List;
 

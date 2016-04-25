@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.stepanian.project4.entities.Product;
-import ru.stepanian.project4.service.ProductService;
+import ru.stepanian.project4.service.ProjectService;
 
 /**
  * Created by Stepanian on 21.04.2016.
@@ -17,13 +17,13 @@ import ru.stepanian.project4.service.ProductService;
 public class OneProductController {
 
     @Autowired
-    private ProductService productService;
+    private ProjectService projectService;
 
     @RequestMapping(value = "/showProduct", method = RequestMethod.GET)
     public String showOneProduct (@RequestParam("id") Long id,
                                   ModelMap model) throws NullPointerException {
 
-        Product product = productService.getProductById(id);
+        Product product = projectService.getProductById(id);
         if (! (product.equals(null)))
             model.addAttribute("product", product);
         return "showProduct";

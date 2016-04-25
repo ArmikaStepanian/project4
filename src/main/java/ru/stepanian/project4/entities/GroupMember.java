@@ -16,10 +16,10 @@ public class GroupMember {
     private Long id;
 
     @Column
-    private String username;
+    private String login;
 
     @Column(name = "GROUP_ID")
-    private Long group = 1L;
+    private Byte groupID = 1;
 
     public Long getId() {
         return id;
@@ -29,19 +29,19 @@ public class GroupMember {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public Long getGroup() {
-        return group;
+    public Byte getGroupID() {
+        return groupID;
     }
 
-    public void setGroup(Long group) {
-        this.group = group;
+    public void setGroupID(Byte groupID) {
+        this.groupID = groupID;
     }
 }

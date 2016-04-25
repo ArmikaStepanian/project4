@@ -37,8 +37,8 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <bean id="productService"
-          class="ru.stepanian.project4.service.ProductServiceImpl">
+    <bean id="projectService"
+          class="ru.stepanian.project4.service.ProjectServiceImpl">
         <property name="dao" ref="dao" />
     </bean>
 
