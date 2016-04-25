@@ -15,7 +15,7 @@ public class GroupMember {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column (name = "USERNAME")
     private String login;
 
     @Column(name = "GROUP_ID")

@@ -27,16 +27,15 @@ public class UserDto {
     @NotEmpty
     private String login;
 
-    @NotNull
-    @NotEmpty
-    private String password;
-
-    private String matchingPassword;
-
     @ValidEmail
     @NotNull
     @NotEmpty
     private String email;
+
+    @NotNull
+    @NotEmpty
+    private String password;
+    private String matchingPassword;
 
     public String getFirstName() {
         return firstName;

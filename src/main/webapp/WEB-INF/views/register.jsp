@@ -8,54 +8,52 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Регистрация</title>
-    <link href="<c:url value="/resources/css/product.css" />" rel="stylesheet">
 </head>
 <body>
-<H1>
+<h3>
     <spring:message code="label.form.title"></spring:message>
-</H1>
+</h3>
 <form:form modelAttribute="userDto" method="POST" enctype="utf8">
-    <br>
-    <tr>
-        <td><label><spring:message code="label.user.firstName"></spring:message>
+    <p>
+        <label><spring:message code="label.user.firstName"></spring:message>
         </label>
-        </td>
-        <td><form:input path="firstName" value="" /></td>
+        <br>
+        <form:input path="firstName" value="" />
         <form:errors path="firstName" element="div"/>
-    </tr>
-    <tr>
-        <td><label><spring:message code="label.user.lastName"></spring:message>
+    </p>
+    <p>
+        <label><spring:message code="label.user.lastName"></spring:message>
         </label>
-        </td>
-        <td><form:input path="lastName" value="" /></td>
+        <br>
+        <form:input path="lastName" value="" />
         <form:errors path="lastName" element="div" />
-    </tr>
-    <tr>
-        <td><label><spring:message code="label.user.email"></spring:message>
+    </p>
+    <p>
+        <label><spring:message code="label.user.email"></spring:message>
         </label>
-        </td>
-        <td><form:input path="email" value="" /></td>
+        <br>
+        <form:input path="email" value="" />
         <form:errors path="email" element="div" />
-    </tr>
-    <tr>
-        <td><label><spring:message code="label.user.password"></spring:message>
+    </p>
+    <p>
+        <label><spring:message code="label.user.password"></spring:message>
         </label>
-        </td>
-        <td><form:input path="password" value="" type="password" /></td>
+        <br>
+        <form:input path="password" value="" type="password" />
         <form:errors path="password" element="div" />
-    </tr>
-    <tr>
-        <td><label><spring:message code="label.user.confirmPass"></spring:message>
+    </p>
+    <p>
+        <label><spring:message code="label.user.confirmPass"></spring:message>
         </label>
-        </td>
-        <td><form:input path="matchingPassword" value="" type="password" /></td>
+        <br>
+        <form:input path="matchingPassword" value="" type="password" />
         <form:errors element="div" />
-    </tr>
+    </p>
     <button type="submit"><spring:message code="label.form.submit"></spring:message>
     </button>
 </form:form>
 <br>
-<a href="<c:url value="products.jsp" />">
+<a href="<c:url value="/auth" />">
     <spring:message code="label.form.loginLink"></spring:message>
 </a>
 
