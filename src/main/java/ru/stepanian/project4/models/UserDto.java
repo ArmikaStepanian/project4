@@ -1,4 +1,4 @@
-package ru.stepanian.project4.model;
+package ru.stepanian.project4.models;
 
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
  * Created by Stepanian on 25.04.2016.
  */
 
+/* DTO - Data Transfer Object */
 @PasswordMatches
 public class UserDto {
 

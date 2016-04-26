@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.stepanian.project4.entities.Product;
 import ru.stepanian.project4.helper.PaginationHelper;
-import ru.stepanian.project4.model.ProductModel;
+import ru.stepanian.project4.models.ProductModel;
 import ru.stepanian.project4.service.ProjectService;
 
 import java.util.List;

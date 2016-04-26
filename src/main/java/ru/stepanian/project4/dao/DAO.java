@@ -1,11 +1,8 @@
 package ru.stepanian.project4.dao;
 
-import ru.stepanian.project4.entities.Category;
-import ru.stepanian.project4.entities.Colors;
-import ru.stepanian.project4.entities.Feature;
-import ru.stepanian.project4.entities.Product;
-import ru.stepanian.project4.entities.GroupMember;
-import ru.stepanian.project4.entities.User;
+import ru.stepanian.project4.entities.*;
+import ru.stepanian.project4.models.UserDto;
+import ru.stepanian.project4.exceptions.LoginExistsException;
 
 import java.util.List;
 
@@ -31,7 +28,8 @@ public interface DAO {
     public void updateProduct (Product product);
     public void deleteProduct (Product product);
 
-    public void addUser(User user);
-    public void addGroupMember(GroupMember member);
-
+    public User createNewUserAccount(UserDto userDto)throws LoginExistsException;
+    public void saveGroupMember(UserDto userDto);
+    public User getUserByLogin (String login);
+    public void saveCreatedNewUserAccount(User user);
 }

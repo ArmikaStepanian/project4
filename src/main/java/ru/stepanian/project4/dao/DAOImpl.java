@@ -5,10 +5,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import ru.stepanian.project4.entities.*;
-import ru.stepanian.project4.entities.GroupMember;
-import ru.stepanian.project4.entities.User;
+import ru.stepanian.project4.models.UserDto;
+import ru.stepanian.project4.exceptions.LoginExistsException;
 
 import java.util.List;
 
@@ -144,15 +145,53 @@ public class DAOImpl implements DAO {
         session.delete(product);
     }
 
+/* Start Создание Юзера, проверка наличия юзера в базе по логину, сохранение юзера в базу, сохранение группы ролей юзера */
     @Override
-    public void addUser(User user) {
+    public User createNewUserAccount(UserDto userDto) throws LoginExistsException {
+        if (loginExist(userDto.getLogin())) {
+            throw new LoginExistsException("Пользователь с таким логином уже существует:"
+                    + userDto.getLogin());
+        }
+        User user = new User();
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setLogin(userDto.getLogin());
+
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(4);
+        String str = bcrypt.encode(userDto.getPassword());
+        user.setPassword(str);
+
+        user.setEmail(userDto.getEmail());
+        return user;
+    }
+    private boolean loginExist(String login) {
+        User user = getUserByLogin(login);
+        if (user != null) {
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public User getUserByLogin (String login) {
+        Session session = this.sessionFactory.getCurrentSession();
+        return session.get(User.class, login);
+    }
+    @Override
+    public void saveCreatedNewUserAccount(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
     }
-
     @Override
-    public void addGroupMember(GroupMember member) {
+    public void saveGroupMember(UserDto userDto) {
+        GroupMember groupMember = new GroupMember();
+        groupMember.setLogin(userDto.getLogin());
         Session session = sessionFactory.getCurrentSession();
-        session.save(member);
+        session.save(groupMember);
     }
+/* End Создание Юзера, проверка наличия юзера в базе по логину, сохранение юзера в базу, сохранение группы ролей юзера */
+
+
+
+
+
 }

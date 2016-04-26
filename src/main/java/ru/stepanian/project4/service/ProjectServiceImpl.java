@@ -4,12 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.stepanian.project4.dao.DAO;
-import ru.stepanian.project4.entities.Category;
-import ru.stepanian.project4.entities.Colors;
-import ru.stepanian.project4.entities.Feature;
-import ru.stepanian.project4.entities.Product;
-import ru.stepanian.project4.entities.GroupMember;
-import ru.stepanian.project4.entities.User;
+import ru.stepanian.project4.entities.*;
+import ru.stepanian.project4.models.UserDto;
+import ru.stepanian.project4.exceptions.LoginExistsException;
 
 import java.util.List;
 
@@ -75,9 +72,17 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Transactional
     @Override
-    public void addUser(User user) { dao.addUser(user); }
+    public User createNewUserAccount(UserDto userDto)throws LoginExistsException { return dao.createNewUserAccount(userDto); }
 
     @Transactional
     @Override
-    public void addGroupMember(GroupMember member) { dao.addGroupMember(member); }
+    public void saveGroupMember(UserDto userDto) { dao.saveGroupMember(userDto); }
+
+    @Transactional
+    @Override
+    public User getUserByLogin (String login) { return dao.getUserByLogin(login); }
+
+    @Transactional
+    @Override
+    public void saveCreatedNewUserAccount(User user){dao.saveCreatedNewUserAccount(user);}
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.stepanian.project4.entities.Product;
 import ru.stepanian.project4.helper.PaginationHelper;
-import ru.stepanian.project4.model.ProductModel;
+import ru.stepanian.project4.models.ProductModel;
 import ru.stepanian.project4.service.ProjectService;
 
 import java.util.List;
@@ -27,16 +27,7 @@ public class FilterProductController {
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
     public String doFilter(@ModelAttribute("productModel") ProductModel productModel,
                            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                           @RequestParam(value = "name", defaultValue = "", required = false) String name,
-                           @RequestParam(value = "color", defaultValue = "", required = false) String color,
-                           @RequestParam(value = "category", defaultValue = "", required = false) String category,
-                           @RequestParam(value = "feature", defaultValue = "", required = false) String feature,
                            ModelMap model) {
-
-        productModel.setName(name);
-        productModel.setColor(color);
-        productModel.setCategory(category);
-        productModel.setFeature(feature);
 
         model.addAttribute("colors", projectService.listColors());
         model.addAttribute("categories", projectService.listCategories());

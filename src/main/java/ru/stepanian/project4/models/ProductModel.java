@@ -1,4 +1,4 @@
-package ru.stepanian.project4.model;
+package ru.stepanian.project4.models;
 
 /**
  * Created by Stepanian on 20.04.2016.

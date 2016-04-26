@@ -33,5 +33,7 @@
     <a href="<c:url value="/registerForm" />" >зарегистрироваться</a>
 </p>
 
+<a href="<c:url value="/" />">Выйти</a>
+
 </body>
 </html>

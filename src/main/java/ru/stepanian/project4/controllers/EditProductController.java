@@ -12,7 +12,7 @@ import ru.stepanian.project4.entities.Colors;
 import ru.stepanian.project4.entities.Feature;
 import ru.stepanian.project4.entities.Product;
 import ru.stepanian.project4.helper.PaginationHelper;
-import ru.stepanian.project4.model.ProductModel;
+import ru.stepanian.project4.models.ProductModel;
 import ru.stepanian.project4.service.ProjectService;
 
 import java.util.List;
@@ -67,15 +67,14 @@ public class EditProductController {
 
     @RequestMapping(value = "/editProduct", method = RequestMethod.GET)
     public String editProd(@ModelAttribute("productModel") ProductModel productModel,
-                              @RequestParam(value = "id") Long id,
-                              @RequestParam(value = "name") String name,
-                              @RequestParam(value = "color") Integer colorId,
-                              @RequestParam(value = "category") Integer categoryId,
-                              @RequestParam(value = "feature") Byte featureId) {
+                           @RequestParam(value = "id") Long id,
+                           @RequestParam(value = "color") Integer colorId,
+                           @RequestParam(value = "category") Integer categoryId,
+                           @RequestParam(value = "feature") Byte featureId) {
 
         Product product = new Product();
         product.setId(id);
-        product.setName(name);
+        product.setName(productModel.getName());
         product.setColor(new Colors(colorId));
         product.setCategory(new Category(categoryId));
         product.setFeature(new Feature(featureId));
