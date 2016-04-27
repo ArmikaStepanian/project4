@@ -4,11 +4,11 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-      <mapping class="ru.stepanian.project4.product.entities.Product"/>
-      <mapping class="ru.stepanian.project4.product.entities.Colors"/>
-      <mapping class="ru.stepanian.project4.product.entities.Feature"/>
-      <mapping class="ru.stepanian.project4.product.entities.Category"/>
-      <mapping class="ru.stepanian.project4.user.entities.User"/>
-      <mapping class="ru.stepanian.project4.user.entities.GroupMember"/>
+      <mapping class="ru.stepanian.project4.entities.Product"/>
+      <mapping class="ru.stepanian.project4.entities.Colors"/>
+      <mapping class="ru.stepanian.project4.entities.Feature"/>
+      <mapping class="ru.stepanian.project4.entities.Category"/>
+      <mapping class="ru.stepanian.project4.entities.User"/>
+      <mapping class="ru.stepanian.project4.entities.GroupMember"/>
   </session-factory>
 </hibernate-configuration>

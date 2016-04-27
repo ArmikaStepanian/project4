@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.stepanian.project4.dao.DAO;
-import ru.stepanian.project4.product.entities.*;
+import ru.stepanian.project4.entities.*;
 import ru.stepanian.project4.user.model.UserDto;
-import ru.stepanian.project4.user.entities.User;
+import ru.stepanian.project4.entities.User;
 import ru.stepanian.project4.user.exceptions.LoginExistsException;
 
 import java.util.List;

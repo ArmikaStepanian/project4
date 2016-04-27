@@ -1,11 +1,11 @@
 package ru.stepanian.project4.user.model;
 
 
-import org.hibernate.validator.constraints.NotEmpty;
-import ru.stepanian.project4.user.passwordMatches.PasswordMatches;
-import ru.stepanian.project4.user.validationEmail.ValidEmail;
+import ru.stepanian.project4.user.validation.PasswordMatches;
+import ru.stepanian.project4.user.validation.ValidEmail;
+import ru.stepanian.project4.user.validation.ValidPassword;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -16,25 +16,20 @@ import javax.validation.constraints.NotNull;
 @PasswordMatches
 public class UserDto {
 
-    @NotNull
-    @NotEmpty
+    @Size(min = 1, max = 50, message = "{firstNameSize}")
     private String firstName;
 
-    @NotNull
-    @NotEmpty
+    @Size(min = 1, max = 50, message = "{lastNameSize}")
     private String lastName;
 
-    @NotNull
-    @NotEmpty
+    @Size(min = 1, max = 50, message = "{loginSize}")
     private String login;
 
     @ValidEmail
-    @NotNull
-    @NotEmpty
+    @Size(max = 100)
     private String email;
 
-    @NotNull
-    @NotEmpty
+    @ValidPassword
     private String password;
     private String matchingPassword;
 

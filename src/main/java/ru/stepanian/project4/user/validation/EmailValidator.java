@@ -1,4 +1,4 @@
-package ru.stepanian.project4.user.validationEmail;
+package ru.stepanian.project4.user.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

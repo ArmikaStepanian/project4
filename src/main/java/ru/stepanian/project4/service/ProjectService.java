@@ -1,8 +1,8 @@
 package ru.stepanian.project4.service;
 
-import ru.stepanian.project4.product.entities.*;
+import ru.stepanian.project4.entities.*;
 import ru.stepanian.project4.user.model.UserDto;
-import ru.stepanian.project4.user.entities.User;
+import ru.stepanian.project4.entities.User;
 import ru.stepanian.project4.user.exceptions.LoginExistsException;
 
 import java.util.List;

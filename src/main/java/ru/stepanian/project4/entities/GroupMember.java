@@ -1,4 +1,4 @@
-package ru.stepanian.project4.user.entities;
+package ru.stepanian.project4.entities;
 
 import javax.persistence.*;
 

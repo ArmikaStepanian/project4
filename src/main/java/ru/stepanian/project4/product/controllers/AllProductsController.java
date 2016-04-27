@@ -6,7 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.stepanian.project4.product.entities.Product;
+import ru.stepanian.project4.entities.Product;
 import ru.stepanian.project4.product.helper.PaginationHelper;
 import ru.stepanian.project4.product.model.ProductModel;
 import ru.stepanian.project4.service.ProjectService;

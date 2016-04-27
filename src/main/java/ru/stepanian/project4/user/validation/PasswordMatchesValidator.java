@@ -1,4 +1,4 @@
-package ru.stepanian.project4.user.passwordMatches;
+package ru.stepanian.project4.user.validation;
 
 import ru.stepanian.project4.user.model.UserDto;
 

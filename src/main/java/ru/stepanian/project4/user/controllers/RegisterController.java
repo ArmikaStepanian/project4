@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.stepanian.project4.user.entities.User;
+import ru.stepanian.project4.entities.User;
 import ru.stepanian.project4.user.exceptions.LoginExistsException;
 import ru.stepanian.project4.user.model.UserDto;
 import ru.stepanian.project4.service.ProjectService;
