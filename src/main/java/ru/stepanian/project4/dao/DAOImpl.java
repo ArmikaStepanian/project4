@@ -7,9 +7,11 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
-import ru.stepanian.project4.entities.*;
-import ru.stepanian.project4.models.UserDto;
-import ru.stepanian.project4.exceptions.LoginExistsException;
+import ru.stepanian.project4.product.entities.*;
+import ru.stepanian.project4.user.model.UserDto;
+import ru.stepanian.project4.user.entities.GroupMember;
+import ru.stepanian.project4.user.entities.User;
+import ru.stepanian.project4.user.exceptions.LoginExistsException;
 
 import java.util.List;
 

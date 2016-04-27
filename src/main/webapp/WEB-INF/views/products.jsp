@@ -5,22 +5,27 @@
 
 <%-- start Login, Logout --%>
 <div style="float: left">
+
+<sec:authorize access=" ! hasRole('ROLE_USER')">
 <p>
     <a href="<c:url value="/auth" />" >Войти</a>
 </p>
-
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-    <p>
-        <a href="./addProductPage"><c:out value="ДОБАВИТЬ ТОВАР"/></a>
-    </p>
 </sec:authorize>
 
-<sec:authorize access="hasRole('ROLE_USER')">
-    <form  action="<c:url value='/logout' />" method="post">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        <input type="submit" value="Выйти"/>
-    </form>
-</sec:authorize>
+    <sec:authorize access="hasRole('ROLE_USER')">
+        <form  action="<c:url value='/logout' />" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <input type="submit" value="Выйти"/>
+            <h4>Вы успешно вошли <br> в приложение.</h4>
+        </form>
+    </sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <p>
+                <a href="./addProductPage"><c:out value="Начать работу с базой данных"/></a>
+            </p>
+        </sec:authorize>
+
 </div>
 <%-- end Login, Logout --%>
 
@@ -69,5 +74,5 @@
 
 
 
-        <%--***${requestScope['javax.servlet.forward.request_uri']}***
-        ***${requestScope['javax.servlet.forward.query_string']}***--%>
+        <%--${requestScope['javax.servlet.forward.request_uri']}
+        ${requestScope['javax.servlet.forward.query_string']}--%>

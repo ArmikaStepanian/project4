@@ -11,10 +11,9 @@
 <body>
 
 <div style="float: left">
-<form  action="<c:url value='/logout' />" method="post">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    <input type="submit" value="Выйти"/>
-</form>
+    <a href="<c:url value="/" />">
+        Вернуться на главную <br> страницу
+    </a>
 </div>
 
 <%-- start Form for adding product --%>

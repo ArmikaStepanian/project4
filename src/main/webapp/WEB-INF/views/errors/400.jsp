@@ -1,17 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Stepanian
-  Date: 18.04.2016
-  Time: 12:42
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html>
 <head>
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>400</title>
 </head>
 <body>
+
 <h4>Ошибочка номер 400.</h4>
-Вы что-то сделали не так!
+
+<p>Вы что-то сделали не так!</p>
+
+<a href="<c:url value="/" />">
+Вернуться на главную страницу
+</a>
+
 </body>
 </html>
