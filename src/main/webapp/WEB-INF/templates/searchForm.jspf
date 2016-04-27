@@ -39,7 +39,6 @@
 </form:form>
 
 <%-- start Script to clear search-form after submit --%>
-
 <script type="text/javascript">
 
     function clearForm(form) {
@@ -81,7 +80,6 @@
     }
 
 </script>
-
 <%-- end Script to clear search-form after submit --%>
 
 </div> <!-- end .header -->

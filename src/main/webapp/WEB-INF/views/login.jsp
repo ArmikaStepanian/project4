@@ -23,7 +23,7 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <input type="submit" name="commit" value="Login"></p>
     <c:if test="${not empty param.login_failed}">
-        <div class="error">
+        <div style="color: red">
             Неверные пользователь <br> и / или пароль
         </div>
     </c:if>

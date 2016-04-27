@@ -33,7 +33,7 @@
 
 <%@include file="/WEB-INF/templates/searchForm.jspf" %>
 
-    <div class="book-list">
+    <div class="product-list">
 
 <%-- start Pagination --%>
     <c:if test="${!(products.isEmpty())}">
