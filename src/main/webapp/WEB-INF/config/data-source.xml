@@ -42,4 +42,7 @@
         <property name="dao" ref="dao" />
     </bean>
 
+    <bean id="collectionHelper"
+          class="ru.stepanian.project4.product.helper.CollectionHelper" />
+
 </beans>

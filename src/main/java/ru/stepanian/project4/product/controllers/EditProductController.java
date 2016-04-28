@@ -11,6 +11,7 @@ import ru.stepanian.project4.entities.Category;
 import ru.stepanian.project4.entities.Colors;
 import ru.stepanian.project4.entities.Feature;
 import ru.stepanian.project4.entities.Product;
+import ru.stepanian.project4.product.helper.CollectionHelper;
 import ru.stepanian.project4.product.helper.PaginationHelper;
 import ru.stepanian.project4.product.model.ProductModel;
 import ru.stepanian.project4.service.ProjectService;
@@ -26,6 +27,8 @@ public class EditProductController {
 
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private CollectionHelper collectionHelper;
 
     @RequestMapping(value = "/editProductPage", method = RequestMethod.GET)
     public String editProductPage(@ModelAttribute("productModel") ProductModel productModel,
@@ -35,21 +38,16 @@ public class EditProductController {
 
         Product existingProduct = projectService.getProductById(id);
 
-        String name = existingProduct.getName();
-        String color = existingProduct.getColor().getName();
-        String category = existingProduct.getCategory().getName();
-        String feature = existingProduct.getFeature().getName();
-
-        productModel.setName(name);
-        productModel.setColor(color);
-        productModel.setCategory(category);
-        productModel.setFeature(feature);
+        productModel.setName(existingProduct.getName());
+        productModel.setColor(existingProduct.getColor().getName());
+        productModel.setCategory(existingProduct.getCategory().getName());
+        productModel.setFeature(existingProduct.getFeature().getName());
 
         model.addAttribute("productModel", productModel);
 
-        model.addAttribute("colors", projectService.listColors());
-        model.addAttribute("categories", projectService.listCategories());
-        model.addAttribute("features", projectService.listFeatures());
+        model.addAttribute("colors", collectionHelper.getColors());
+        model.addAttribute("categories", collectionHelper.getCategories());
+        model.addAttribute("features", collectionHelper.getFeatures());
 
         PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);
