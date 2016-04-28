@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.stepanian.project4.entities.Product;
-import ru.stepanian.project4.product.helper.CollectionHelper;
 import ru.stepanian.project4.product.helper.PaginationHelper;
 import ru.stepanian.project4.product.model.ProductModel;
 import ru.stepanian.project4.service.ProjectService;
@@ -23,16 +22,15 @@ public class AllProductsController {
 
     @Autowired
     private ProjectService projectService;
-    @Autowired
-    private CollectionHelper collectionHelper;
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String doGet(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                         ModelMap model) {
 
-        model.addAttribute("colors", collectionHelper.getColors());
-        model.addAttribute("categories", collectionHelper.getCategories());
-        model.addAttribute("features", collectionHelper.getFeatures());
+        model.addAttribute("colors", projectService.listColors());
+        model.addAttribute("categories", projectService.listCategories());
+        model.addAttribute("features", projectService.listFeatures());
 
         model.addAttribute("productModel", new ProductModel());
 

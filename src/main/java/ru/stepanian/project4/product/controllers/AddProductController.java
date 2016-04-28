@@ -11,7 +11,6 @@ import ru.stepanian.project4.entities.Category;
 import ru.stepanian.project4.entities.Colors;
 import ru.stepanian.project4.entities.Feature;
 import ru.stepanian.project4.entities.Product;
-import ru.stepanian.project4.product.helper.CollectionHelper;
 import ru.stepanian.project4.product.helper.PaginationHelper;
 import ru.stepanian.project4.product.model.ProductModel;
 import ru.stepanian.project4.service.ProjectService;
@@ -27,17 +26,15 @@ public class AddProductController {
 
     @Autowired
     private ProjectService projectService;
-    @Autowired
-    private CollectionHelper collectionHelper;
 
     @RequestMapping(value = "/addProductPage", method = RequestMethod.GET)
     public String addProductPage (@ModelAttribute("productModel") ProductModel productModel,
                                   @RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                   ModelMap model){
 
-        model.addAttribute("colors", collectionHelper.getColors());
-        model.addAttribute("categories", collectionHelper.getCategories());
-        model.addAttribute("features", collectionHelper.getFeatures());
+        model.addAttribute("colors", projectService.listColors());
+        model.addAttribute("categories", projectService.listCategories());
+        model.addAttribute("features", projectService.listFeatures());
 
         PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);

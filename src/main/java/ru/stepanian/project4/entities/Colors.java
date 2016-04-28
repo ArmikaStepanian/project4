@@ -22,7 +22,7 @@ public class Colors {
 
     public Colors() {
     }
-
+    
     public Colors(Integer id) {
         this.id = id;
     }
