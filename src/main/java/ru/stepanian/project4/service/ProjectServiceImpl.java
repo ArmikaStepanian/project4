@@ -5,9 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.stepanian.project4.dao.DAO;
 import ru.stepanian.project4.entities.*;
-import ru.stepanian.project4.user.model.UserDto;
-import ru.stepanian.project4.entities.User;
 import ru.stepanian.project4.user.exceptions.LoginExistsException;
+import ru.stepanian.project4.user.model.UserDto;
 
 import java.util.List;
 
@@ -20,10 +19,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private DAO dao;
-
-    public void setDao(DAO dao) {
-        this.dao = dao;
-    }
 
     @Transactional
     @Override

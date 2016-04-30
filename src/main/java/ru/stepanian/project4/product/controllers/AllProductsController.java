@@ -23,7 +23,6 @@ public class AllProductsController {
     @Autowired
     private ProjectService projectService;
 
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String doGet(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                         ModelMap model) {

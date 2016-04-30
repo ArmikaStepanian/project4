@@ -4,14 +4,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import ru.stepanian.project4.entities.*;
-import ru.stepanian.project4.user.model.UserDto;
-import ru.stepanian.project4.entities.GroupMember;
-import ru.stepanian.project4.entities.User;
 import ru.stepanian.project4.user.exceptions.LoginExistsException;
+import ru.stepanian.project4.user.model.UserDto;
 
 import java.util.List;
 
@@ -22,7 +19,6 @@ import java.util.List;
 @Repository
 public class DAOImpl implements DAO {
 
-    @Autowired
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
