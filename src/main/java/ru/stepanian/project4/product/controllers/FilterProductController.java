@@ -23,6 +23,8 @@ public class FilterProductController {
 
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private PaginationHelper pageHelper;
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
     public String doFilter(@ModelAttribute("productModel") ProductModel productModel,
@@ -33,7 +35,6 @@ public class FilterProductController {
         model.addAttribute("categories", projectService.listCategories());
         model.addAttribute("features", projectService.listFeatures());
 
-        PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);
         long count = projectService.getCountByParameters(productModel.getName(), productModel.getColor(),
                                                          productModel.getCategory(), productModel.getFeature());

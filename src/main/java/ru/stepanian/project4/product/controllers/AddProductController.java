@@ -26,6 +26,8 @@ public class AddProductController {
 
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private PaginationHelper pageHelper;
 
     @RequestMapping(value = "/addProductPage", method = RequestMethod.GET)
     public String addProductPage (@ModelAttribute("productModel") ProductModel productModel,
@@ -36,7 +38,6 @@ public class AddProductController {
         model.addAttribute("categories", projectService.listCategories());
         model.addAttribute("features", projectService.listFeatures());
 
-        PaginationHelper pageHelper = new PaginationHelper();
         model.addAttribute("pageHelper", pageHelper);
         long count = projectService.getCountAll();
         model.addAttribute("count", count);

@@ -1,9 +1,12 @@
 package ru.stepanian.project4.product.helper;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by Stepanian on 16.04.2016.
  */
 
+@Component
 public class PaginationHelper {
 
     private int currentPage;
