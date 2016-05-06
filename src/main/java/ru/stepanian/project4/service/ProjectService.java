@@ -2,8 +2,6 @@ package ru.stepanian.project4.service;
 
 import ru.stepanian.project4.entities.*;
 import ru.stepanian.project4.user.model.UserDto;
-import ru.stepanian.project4.entities.User;
-import ru.stepanian.project4.user.exceptions.LoginExistsException;
 
 import java.util.List;
 
@@ -26,7 +24,7 @@ public interface ProjectService {
     public void updateProduct (Product product);
     public void deleteProduct (Product product);
 
-    public User createNewUserAccount(UserDto userDto)throws LoginExistsException;
+    public User createNewUserAccount(UserDto userDto);
     public void saveCreatedNewUserAccount(User user);
     public User getUserByLogin (String login);
     public void saveGroupMember(UserDto userDto);

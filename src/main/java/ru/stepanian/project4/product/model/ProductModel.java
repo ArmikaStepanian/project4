@@ -1,9 +1,12 @@
 package ru.stepanian.project4.product.model;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by Stepanian on 20.04.2016.
  */
 
+@Component
 public class ProductModel {
 
     private Long id;

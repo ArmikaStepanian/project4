@@ -1,6 +1,7 @@
 package ru.stepanian.project4.user.model;
 
 
+import org.springframework.stereotype.Component;
 import ru.stepanian.project4.user.validation.PasswordMatches;
 import ru.stepanian.project4.user.validation.ValidEmail;
 import ru.stepanian.project4.user.validation.ValidPassword;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
 
 /* DTO - Data Transfer Object */
 @PasswordMatches
+@Component
 public class UserDto {
 
     @Size(min = 1, max = 50, message = "{firstNameSize}")

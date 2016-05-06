@@ -28,6 +28,8 @@ public class EditProductController {
     private ProjectService projectService;
     @Autowired
     private PaginationHelper pageHelper;
+    @Autowired
+    private Product product;
 
     @RequestMapping(value = "/editProductPage", method = RequestMethod.GET)
     public String editProductPage(@ModelAttribute("productModel") ProductModel productModel,
@@ -68,7 +70,6 @@ public class EditProductController {
                            @RequestParam(value = "category") Integer categoryId,
                            @RequestParam(value = "feature") Byte featureId) {
 
-        Product product = new Product();
         product.setId(id);
         product.setName(productModel.getName());
         product.setColor(new Colors(colorId));

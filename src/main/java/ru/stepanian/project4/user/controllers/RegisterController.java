@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.stepanian.project4.entities.User;
-import ru.stepanian.project4.user.exceptions.LoginExistsException;
-import ru.stepanian.project4.user.model.UserDto;
 import ru.stepanian.project4.service.ProjectService;
+import ru.stepanian.project4.user.model.UserDto;
 
 import javax.validation.Valid;
 
@@ -23,10 +22,14 @@ public class RegisterController {
 
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private User user;
+    @Autowired
+    private UserDto userDto;
 
     @RequestMapping(value = "/registerForm", method = RequestMethod.GET)
     public String registerForm(ModelMap model) {
-        model.addAttribute("userDto", new UserDto());
+        model.addAttribute("userDto", userDto);
         return "register";
     }
 
@@ -34,9 +37,8 @@ public class RegisterController {
     public String registerUser(@Valid @ModelAttribute("userDto") UserDto userDto,
                                BindingResult result) {
 
-        User user = new User();
         if (!result.hasErrors()) {
-            user = tryToCreateNewUserAccount(userDto, result);
+            user = projectService.createNewUserAccount(userDto);
         }
         if (user == null) {
             result.rejectValue("login", "message.regError");
@@ -49,14 +51,5 @@ public class RegisterController {
             projectService.saveGroupMember(userDto);
             return "redirect:/";
         }
-    }
-    private User tryToCreateNewUserAccount(UserDto userDto, BindingResult result) {
-        User user = null;
-        try {
-            user = projectService.createNewUserAccount(userDto);
-        } catch (LoginExistsException e) {
-            return null;
-        }
-        return user;
     }
 }

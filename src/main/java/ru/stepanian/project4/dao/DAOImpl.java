@@ -7,7 +7,6 @@ import org.hibernate.transform.Transformers;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import ru.stepanian.project4.entities.*;
-import ru.stepanian.project4.user.exceptions.LoginExistsException;
 import ru.stepanian.project4.user.model.UserDto;
 
 import java.util.List;
@@ -121,7 +120,7 @@ public class DAOImpl implements DAO {
 
     @Override
     public Product getProductById(Long id) {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         return session.get(Product.class, id);
     }
 
@@ -145,11 +144,13 @@ public class DAOImpl implements DAO {
 
 /* Start Создание Юзера, проверка наличия юзера в базе по логину, сохранение юзера в базу, сохранение группы ролей юзера */
     @Override
-    public User createNewUserAccount(UserDto userDto) throws LoginExistsException {
+    public User createNewUserAccount(UserDto userDto) {
+
         if (loginExist(userDto.getLogin())) {
-            throw new LoginExistsException("Пользователь с таким логином уже существует:"
-                    + userDto.getLogin());
+
+            return null;
         }
+
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
@@ -171,7 +172,7 @@ public class DAOImpl implements DAO {
     }
     @Override
     public User getUserByLogin (String login) {
-        Session session = this.sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         return session.get(User.class, login);
     }
     @Override
@@ -187,5 +188,6 @@ public class DAOImpl implements DAO {
         session.save(groupMember);
     }
 /* End Создание Юзера, проверка наличия юзера в базе по логину, сохранение юзера в базу, сохранение группы ролей юзера */
+
 
 }

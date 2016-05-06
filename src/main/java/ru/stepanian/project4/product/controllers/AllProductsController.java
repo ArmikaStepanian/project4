@@ -24,6 +24,8 @@ public class AllProductsController {
     private ProjectService projectService;
     @Autowired
     private PaginationHelper pageHelper;
+    @Autowired
+    private ProductModel productModel;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String doGet(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
@@ -33,7 +35,7 @@ public class AllProductsController {
         model.addAttribute("categories", projectService.listCategories());
         model.addAttribute("features", projectService.listFeatures());
 
-        model.addAttribute("productModel", new ProductModel());
+        model.addAttribute("productModel", productModel);
 
         model.addAttribute("pageHelper", pageHelper);
         long count = projectService.getCountAll();

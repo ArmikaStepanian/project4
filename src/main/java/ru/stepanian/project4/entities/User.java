@@ -1,5 +1,7 @@
 package ru.stepanian.project4.entities;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
 /**
@@ -8,6 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table (name = "USERS")
+@Component
 public class User {
 
     @Column

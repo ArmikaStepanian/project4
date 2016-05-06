@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.stepanian.project4.dao.DAO;
 import ru.stepanian.project4.entities.*;
-import ru.stepanian.project4.user.exceptions.LoginExistsException;
 import ru.stepanian.project4.user.model.UserDto;
 
 import java.util.List;
@@ -68,7 +67,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Transactional
     @Override
-    public User createNewUserAccount(UserDto userDto)throws LoginExistsException { return dao.createNewUserAccount(userDto); }
+    public User createNewUserAccount(UserDto userDto) { return dao.createNewUserAccount(userDto); }
 
     @Transactional
     @Override
